@@ -1,0 +1,4 @@
+node_modules/
+claude-code-test/
+.DS_Store
+out/
