@@ -21,7 +21,7 @@ export default function Header() {
         {/* Right: Plan intake button */}
         <button
           ref={intakeBtnRef as any}
-          onClick={() => window.location.href = '/intake'}
+          onClick={() => document.querySelector('[data-section="intake"]')?.scrollIntoView({ behavior: 'smooth' })}
           className="
             inline-flex items-center justify-center
             h-8 px-5

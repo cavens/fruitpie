@@ -49,13 +49,16 @@ export default function IntakeSection() {
         </p>
 
         {/* CTA Button */}
-        <button
+        <a
           ref={buttonRef as any}
-          className="h-8 px-5 bg-black text-white text-[12px] font-mono font-normal rounded-[3px] whitespace-nowrap hover:bg-gray-900 hover:scale-110 transition-all"
+          href="https://cal.com/fruitpie/15min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center h-8 px-5 bg-black text-white text-[12px] font-mono font-normal rounded-[3px] whitespace-nowrap hover:bg-gray-900 hover:scale-110 transition-all"
           style={{ transitionDuration: "80ms" }}
         >
           Prik moment!
-        </button>
+        </a>
 
       </div>
     </section>
