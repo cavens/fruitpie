@@ -540,7 +540,7 @@ export const FruitpieStoryboard: React.FC = () => {
         {/* Step 3: Fruitpie logotype — 60° rotated, centered between the two marching-ants diagonals
             WM natural center ≈ (400,300); target screen center ≈ (477,265); scale 0.28 */}
         {frame >= STEP3 && (
-          <g style={{ transform: `translate(490px, 285px) rotate(60deg) scale(${0.28 * sp(STEP3)}) translate(-400px, -300px)` }}>
+          <g style={{ transform: `translate(483px, 272px) rotate(60deg) scale(${0.28 * sp(STEP3)}) translate(-400px, -300px)` }}>
             {WM.map((d, i) => <path key={i} d={d} fill="black" />)}
           </g>
         )}
