@@ -82,7 +82,7 @@ export default function App() {
             const footer = document.querySelector('footer');
             const imageHeight = 270;
             const footerTop = footer ? footer.getBoundingClientRect().top : window.innerHeight;
-            const finalTop = footerTop - imageHeight;
+            const finalTop = footerTop - imageHeight - 150;
             const startTop = window.innerHeight;
             imageTop = startTop + progress * (finalTop - startTop);
           } else {
