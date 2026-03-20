@@ -82,11 +82,12 @@ export default function App() {
             const footer = document.querySelector('footer');
             const imageHeight = 270;
             const footerTop = footer ? footer.getBoundingClientRect().top : window.innerHeight;
-            const finalTop = footerTop - imageHeight - 150;
+            const finalTop = footerTop - imageHeight + 80;
             const startTop = window.innerHeight;
             imageTop = startTop + progress * (finalTop - startTop);
           } else {
-            imageTop = window.innerHeight + 600 - progress * (window.innerHeight + 600);
+            // Desktop: end 150px above top of viewport
+            imageTop = window.innerHeight + 600 - progress * (window.innerHeight + 750);
           }
 
           emptyPlate.style.top = imageTop + "px";
