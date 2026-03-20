@@ -6,7 +6,7 @@ export default function IntakeSection() {
   const { ref: buttonRef } = useMouseSticky();
 
   return (
-    <section ref={sectionRef} className="w-full pt-[25px] pb-[25px] relative z-20 fade-in-section" data-section="intake">
+    <section ref={sectionRef} className="w-full pt-[25px] pb-[25px] relative z-20 fade-in-section scroll-mt-[80px]" data-section="intake">
       <div className="w-full px-4 sm:px-6 lg:px-[60px]">
 
         {/* Calendar + pencil icon */}
