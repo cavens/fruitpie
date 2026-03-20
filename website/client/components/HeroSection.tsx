@@ -75,7 +75,8 @@ export default function HeroSection() {
           >
             Het boekhoudkantoor waarbij{" "}
             <strong className="font-bold">AI</strong>
-            {" voorbereidt en de boekhouder afwerkt. Meer tijd voor advies, de helft van de prijs."}
+            {" voorbereidt en de boekhouder afwerkt. Meer tijd voor advies en aan "}
+            <span className="font-serif italic">de helft van de prijs.</span>
           </h1>
 
           {/* Body text — 16px Roboto (same as header slogan) */}
