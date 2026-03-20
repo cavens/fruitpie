@@ -34,7 +34,7 @@ export default function Header() {
           "
           style={{ transitionDuration: "80ms" }}
         >
-          Plan intake
+          Proefgesprek?
         </button>
 
       </div>
