@@ -73,9 +73,9 @@ export default function HeroSection() {
             className="text-[40px] leading-tight font-sans font-normal text-black mb-4 max-w-[100%] lg:max-w-[80%]"
             style={{ transformStyle: "preserve-3d" }}
           >
-            Het boekhoudkantoor waarbij{" "}
-            <strong className="font-bold">AI</strong>
-            {" voorbereidt en de boekhouder afwerkt. Meer tijd voor advies en aan "}
+            Het{" "}
+            <strong className="font-bold">AI-native boekhoudkantoor</strong>
+            {" waarbij AI voorbereidt en de boekhouder afwerkt. Meer tijd voor advies en aan "}
             <span className="font-serif italic">de helft van de prijs.</span>
           </h1>
 
