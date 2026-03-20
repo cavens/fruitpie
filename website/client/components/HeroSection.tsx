@@ -81,9 +81,7 @@ export default function HeroSection() {
 
           {/* Body text — 16px Roboto (same as header slogan) */}
           <p className="text-[16px] font-sans font-normal text-black leading-normal mb-6 max-w-[580px]">
-            Veel boekhoudingen lopen weken achter. Cijfers komen pas na de
-            BTW-aangifte en vragen blijven liggen. Als ondernemer hebt u
-            actuele cijfers nodig, niet cijfers van drie maanden geleden.
+            Een boekhouder die achter de feiten aanloopt, heeft geen tijd voor advies. Fruitpie combineert <strong>AI-automatisatie</strong> met <strong>echte expertise</strong> — zodat u altijd <strong>actuele cijfers</strong> hebt én een <strong>boekhouder die meedenkt.</strong>
           </p>
 
           {/* Buttons — same size as Plan intake button in header */}
