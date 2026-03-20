@@ -45,16 +45,16 @@ export default function HeroSection() {
   // }, []);
 
   return (
-    <section ref={sectionRef} className="relative bg-white m-0 py-20 fade-in-section">
+    <section ref={sectionRef} className="relative bg-white m-0 pt-10 pb-8 fade-in-section">
       {/* Unicorn Studio WebGL Effect Background */}
       <UnicornStudioEffect />
 
       {/* Content layer — sits OVER WebGL effect and image (z-30), all content in one layer, shifted up, with side margins */}
-      <div className="relative z-30 w-full px-4 sm:px-6 lg:px-[60px] pt-8 lg:pt-12 pb-0">
+      <div className="relative z-30 w-full px-4 sm:px-6 lg:px-[60px] pt-4 lg:pt-6 pb-0">
         <div>
 
           {/* Fruitpie pie icon */}
-          <div className="mb-10">
+          <div className="mb-5">
             <svg
               width="53"
               height="54"
@@ -70,7 +70,7 @@ export default function HeroSection() {
           {/* Main heading — 40px, Roboto + Georgia italic mix (30% smaller, then 10% more), 80% width on desktop */}
           <h1
             ref={headingRef}
-            className="text-[40px] leading-tight font-sans font-normal text-black mb-6 max-w-[100%] lg:max-w-[80%]"
+            className="text-[40px] leading-tight font-sans font-normal text-black mb-4 max-w-[100%] lg:max-w-[80%]"
             style={{ transformStyle: "preserve-3d" }}
           >
             Voorbereid door{" "}
@@ -83,7 +83,7 @@ export default function HeroSection() {
           </h1>
 
           {/* Body text — 16px Roboto (same as header slogan) */}
-          <p className="text-[16px] font-sans font-normal text-black leading-normal mb-10 max-w-[580px]">
+          <p className="text-[16px] font-sans font-normal text-black leading-normal mb-6 max-w-[580px]">
             Veel boekhoudingen lopen weken achter. Cijfers komen pas na de
             BTW-aangifte en vragen blijven liggen. Als ondernemer hebt u
             actuele cijfers nodig, niet cijfers van drie maanden geleden.
