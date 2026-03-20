@@ -22,7 +22,7 @@ export default function VideoSection() {
       >
         {/* Video container — NO border, just the image */}
         <div
-          className="w-full max-w-[800px] relative overflow-hidden px-4 sm:px-6 lg:px-[60px]"
+          className="w-full max-w-[600px] relative overflow-hidden"
           style={{ aspectRatio: "35 / 23", padding: "0" }}
         >
           {/* Video thumbnail image */}
