@@ -10,7 +10,11 @@ export default function Header() {
 
         {/* Left: logo + tagline */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 gap-1.5">
-          <Link to="/" className="text-black text-[28px] font-bold font-sans leading-none">
+          <Link
+            to="/"
+            className="text-black text-[28px] font-bold font-sans leading-none"
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+          >
             fruitpie
           </Link>
           <span className="text-black text-[14px] sm:text-[16px] font-normal font-sans leading-none">

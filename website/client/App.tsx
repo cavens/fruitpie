@@ -24,57 +24,31 @@ export default function App() {
     const emptyPlate = emptyPlateRef.current;
     if (!el && !emptyPlate) return;
 
-    // Set responsive image size and position based on viewport
-    const updateImageSize = () => {
-      const isMobile = window.innerWidth < 480; // Small phones only
-      const size = isMobile ? "270px" : "540px"; // Half size on small phones
-
-      if (el) {
-        el.style.width = size;
-        el.style.height = size;
-        if (isMobile) {
-          // Left edge aligned to middle on mobile
-          el.style.left = "50%";
-          el.style.right = "auto";
-          el.style.transform = "none";
-        } else {
-          // Right side on desktop
-          el.style.left = "auto";
-          el.style.right = "calc((100vw - 1200px) / 2 + 20px)";
-          el.style.transform = "none";
-        }
-      }
-      if (emptyPlate) {
-        emptyPlate.style.width = size;
-        emptyPlate.style.height = size;
-        if (isMobile) {
-          // Left edge aligned to middle on mobile
-          emptyPlate.style.left = "50%";
-          emptyPlate.style.right = "auto";
-          emptyPlate.style.transform = "none";
-        } else {
-          // Right side on desktop
-          emptyPlate.style.left = "auto";
-          emptyPlate.style.right = "calc((100vw - 1200px) / 2 + 20px)";
-          emptyPlate.style.transform = "none";
-        }
-      }
-    };
-
-    const handleScroll = () => {
+    const updatePositions = () => {
       const scrollY = window.scrollY;
+      const isMobile = window.innerWidth < 480;
+      const size = isMobile ? "270px" : "540px";
 
-      // Update image size in case viewport changed
-      updateImageSize();
+      // Apply size + horizontal position
+      [el, emptyPlate].forEach((img) => {
+        if (!img) return;
+        img.style.width = size;
+        img.style.height = size;
+        if (isMobile) {
+          img.style.left = "50%";
+          img.style.right = "auto";
+        } else {
+          img.style.left = "auto";
+          img.style.right = "calc((100vw - 1200px) / 2 + 20px)";
+        }
+      });
 
       // Handle first image (full plate)
       if (el) {
-        // Show image only when scrolled 600px or more
         if (scrollY < 600) {
           el.style.display = "none";
         } else {
           el.style.display = "block";
-          // Image appears 600px higher, starting at -400px instead of 200px
           el.style.top = (-400 + scrollY * 0.5) + "px";
         }
       }
@@ -86,10 +60,7 @@ export default function App() {
 
         const intakeRect = intakeSection.getBoundingClientRect();
         const intakeTopAbsolute = scrollY + intakeRect.top;
-        const intakeBottomAbsolute = scrollY + intakeRect.bottom;
 
-        // Empty plate scrolls in from bottom as we approach intake section
-        // Start showing much earlier so image is higher at bottom of page
         const showStartY = intakeTopAbsolute - 2500;
         const showEndY = intakeTopAbsolute;
 
@@ -97,26 +68,23 @@ export default function App() {
           emptyPlate.style.display = "none";
         } else {
           emptyPlate.style.display = "block";
-          // Position: starts below viewport and moves up
           const progress = Math.min(1, (scrollY - showStartY) / (showEndY - showStartY));
-          // Starts at bottom (window height + 600) and moves up as progress increases
           const imageTop = window.innerHeight + 600 - progress * (window.innerHeight + 600);
           emptyPlate.style.top = imageTop + "px";
         }
       }
     };
 
-    // Initial size update
-    updateImageSize();
-
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", updateImageSize);
-    // Initial call
-    handleScroll();
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", updateImageSize);
+    // Use rAF loop so positions update during iOS momentum scrolling,
+    // not just after touch ends (scroll events don't fire mid-gesture on iOS)
+    let rafId: number;
+    const loop = () => {
+      updatePositions();
+      rafId = requestAnimationFrame(loop);
     };
+    rafId = requestAnimationFrame(loop);
+
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   return (
@@ -135,6 +103,7 @@ export default function App() {
           zIndex: 20,
           pointerEvents: "none",
           display: "block",
+          willChange: "transform",
         }}
       >
         <img
@@ -157,6 +126,7 @@ export default function App() {
           zIndex: 1,
           pointerEvents: "none",
           display: "none",
+          willChange: "transform",
         }}
       >
         <img
