@@ -6,7 +6,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-fp-gray-border h-[70px] flex items-center justify-center">
-      <div className="w-full max-w-[1200px] px-4 sm:px-6 lg:px-[60px] flex items-center justify-between">
+      <div className="w-full max-w-[1200px] px-4 sm:px-6 lg:px-[60px] flex items-start pt-[11px] sm:pt-0 sm:items-center justify-between">
 
         {/* Left: logo + tagline */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 gap-1.5">
