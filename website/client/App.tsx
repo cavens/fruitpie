@@ -49,7 +49,9 @@ export default function App() {
           el.style.display = "none";
         } else {
           el.style.display = "block";
-          el.style.top = (-400 + scrollY * 0.5) + "px";
+          // Slower parallax on mobile
+          const speed = isMobile ? 0.3 : 0.5;
+          el.style.top = (-400 + scrollY * speed) + "px";
         }
       }
 
@@ -61,7 +63,11 @@ export default function App() {
         const intakeRect = intakeSection.getBoundingClientRect();
         const intakeTopAbsolute = scrollY + intakeRect.top;
 
-        const showStartY = intakeTopAbsolute - 1200;
+        // On mobile: start appearing 1 viewport height before intake section
+        // On desktop: keep original 1200px offset
+        const showStartY = isMobile
+          ? intakeTopAbsolute - window.innerHeight
+          : intakeTopAbsolute - 1200;
         const showEndY = intakeTopAbsolute;
 
         if (scrollY < showStartY) {
@@ -69,7 +75,20 @@ export default function App() {
         } else {
           emptyPlate.style.display = "block";
           const progress = Math.min(1, (scrollY - showStartY) / (showEndY - showStartY));
-          const imageTop = window.innerHeight + 600 - progress * (window.innerHeight + 600);
+
+          let imageTop: number;
+          if (isMobile) {
+            // Final position: bottom of image aligned to top of footer
+            const footer = document.querySelector('footer');
+            const imageHeight = 270;
+            const footerTop = footer ? footer.getBoundingClientRect().top : window.innerHeight;
+            const finalTop = footerTop - imageHeight;
+            const startTop = window.innerHeight;
+            imageTop = startTop + progress * (finalTop - startTop);
+          } else {
+            imageTop = window.innerHeight + 600 - progress * (window.innerHeight + 600);
+          }
+
           emptyPlate.style.top = imageTop + "px";
         }
       }
