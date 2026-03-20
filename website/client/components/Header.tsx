@@ -9,11 +9,11 @@ export default function Header() {
       <div className="w-full max-w-[1200px] px-4 sm:px-6 lg:px-[60px] flex items-center justify-between">
 
         {/* Left: logo + tagline */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 gap-1.5">
           <Link to="/" className="text-black text-[28px] font-bold font-sans leading-none">
             fruitpie
           </Link>
-          <span className="text-black text-[11px] sm:text-[16px] font-normal font-sans leading-none">
+          <span className="text-black text-[14px] sm:text-[16px] font-normal font-sans leading-none">
             Boekhouders met superpowers
           </span>
         </div>
