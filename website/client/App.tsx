@@ -61,7 +61,7 @@ export default function App() {
         const intakeRect = intakeSection.getBoundingClientRect();
         const intakeTopAbsolute = scrollY + intakeRect.top;
 
-        const showStartY = intakeTopAbsolute - 2500;
+        const showStartY = intakeTopAbsolute - 1200;
         const showEndY = intakeTopAbsolute;
 
         if (scrollY < showStartY) {
