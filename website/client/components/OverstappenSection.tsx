@@ -36,26 +36,30 @@ export default function OverstappenSection() {
         </p>
 
         {/* Overstap agent card */}
-        <div className="w-full max-w-[806px] border border-dashed border-[#A1A1A1] rounded-[5px] bg-white pt-7 pb-6 px-6 sm:px-10">
+        <div className="w-full max-w-[500px] border border-dashed border-[#A1A1A1] rounded-[5px] bg-white pt-5 pb-5 px-5">
 
           {/* Title */}
-          <p className="text-center text-[18px] sm:text-[24px] font-sans text-black mb-6 leading-snug">
+          <p className="text-center text-[16px] font-sans text-black mb-4 leading-snug">
             Fruitpie's <strong>overstap-agent regelt alles</strong>
           </p>
 
           {/* Green box */}
-          <div className="border border-[#00FF2F] rounded-[5px] bg-[#F3FFE8] px-4 sm:px-8 py-5 mb-5">
-            <div className="flex flex-col gap-3 text-center font-mono text-[12px] sm:text-[15px] leading-[1.5] text-black">
+          <div className="border border-[#00FF2F] rounded-[5px] bg-[#F3FFE8] px-4 py-4 mb-4">
+            <div className="flex flex-col items-center text-center font-mono text-[12px] leading-[1.5] text-black">
               <p className="font-bold">Jij geeft Fruitpie opdracht om overstap in gang te zetten</p>
+              <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
               <p>Overstap email naar huidige / vorige boekhouder</p>
+              <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
               <p>Boekhouder moet (wettelijk) dossier meteen aanleveren</p>
+              <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
               <p>Fruitpie agent controleert dossier op volledigheid</p>
+              <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
               <p>Fruitpie koppelt dossier aan bestaande systemen</p>
             </div>
           </div>
 
           {/* Footer note */}
-          <p className="text-center font-mono text-[11px] sm:text-[13px] text-[#666666] leading-snug">
+          <p className="text-center font-mono text-[11px] text-[#666666] leading-snug">
             (Tijdens uw eventuele opzegtermijn (max 3m) betaalt u niet voor Fruitpie)
           </p>
 
