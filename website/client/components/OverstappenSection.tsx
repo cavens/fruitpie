@@ -50,9 +50,9 @@ export default function OverstappenSection() {
               <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
               <p>Overstap email naar huidige / vorige boekhouder</p>
               <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
-              <p>Boekhouder moet (wettelijk) dossier meteen aanleveren</p>
+              <p className="font-bold">Boekhouder moet (wettelijk) dossier meteen aanleveren</p>
               <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
-              <p>Fruitpie agent controleert dossier op volledigheid</p>
+              <p>Fruitpie agent controleert <span className="underline">dossier</span> op volledigheid</p>
               <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
               <p>Fruitpie koppelt dossier aan bestaande systemen</p>
             </div>
