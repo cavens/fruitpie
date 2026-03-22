@@ -46,11 +46,11 @@ export default function OverstappenSection() {
           {/* Green box */}
           <div className="border border-[#00FF2F] rounded-[5px] bg-[#F3FFE8] px-4 py-4 mb-4">
             <div className="flex flex-col items-center text-center font-mono text-[12px] leading-[1.5] text-black">
-              <p className="font-bold">Jij geeft Fruitpie opdracht om overstap in gang te zetten</p>
+              <p>Jij geeft Fruitpie opdracht om overstap in gang te zetten</p>
               <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
               <p>Overstap email naar huidige / vorige boekhouder</p>
               <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
-              <p className="font-bold">Boekhouder moet (wettelijk) dossier meteen aanleveren</p>
+              <p>Boekhouder moet (wettelijk) dossier meteen aanleveren</p>
               <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
               <p>Fruitpie agent controleert <span className="underline">dossier</span> op volledigheid</p>
               <svg className="my-2" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.6399 0.360109L8 8L0.36011 0.360109" stroke="black"/></svg>
