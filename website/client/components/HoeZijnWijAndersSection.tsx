@@ -35,85 +35,68 @@ export default function HoeZijnWijAndersSection() {
 
         {/* Matrix */}
         <div className="max-w-[500px] border border-dashed border-fp-gray-border rounded-[5px] overflow-hidden">
-        <div className="flex gap-0">
+          <div className="flex">
 
-          {/* Left axis labels */}
-          <div className="flex flex-col gap-0 mr-0">
-            {/* Spacer for top axis labels */}
-            <div className="h-[20px]"></div>
-            {/* Top label - centered in top row */}
-            <div className="h-[110px] flex items-center justify-center w-[55px] px-1">
-              <p className="text-[11px] font-sans font-bold text-black tracking-widest uppercase text-center leading-tight" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
-                Zonder mensen
-              </p>
-            </div>
-            {/* Bottom label - centered in bottom row */}
-            <div className="h-[110px] flex items-center justify-center w-[55px] px-1">
-              <p className="text-[11px] font-sans font-bold text-black tracking-widest uppercase text-center leading-tight" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
-                Met mensen
-              </p>
-            </div>
-          </div>
-
-          {/* Right grid */}
-          <div className="flex flex-col">
-            {/* Top axis labels */}
-            <div className="flex gap-0 mb-2">
-              <div className="flex-1 min-w-[150px] text-center">
-                <p className="text-[11px] font-sans font-bold text-black tracking-widest uppercase">
-                  AI in de rand
+            {/* Left axis labels column */}
+            <div className="flex flex-col border-r border-dashed border-fp-gray-border w-[50px] flex-shrink-0">
+              {/* Spacer aligns with top axis labels row */}
+              <div className="h-[36px] border-b border-dashed border-fp-gray-border"></div>
+              {/* Zonder mensen */}
+              <div className="flex-1 h-[110px] flex items-center justify-center border-b border-dashed border-fp-gray-border">
+                <p className="text-[9px] font-mono font-bold text-black tracking-widest uppercase text-center leading-tight" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+                  Zonder mensen
                 </p>
               </div>
-              <div className="flex-1 min-w-[150px] text-center">
-                <p className="text-[11px] font-sans font-bold text-black tracking-widest uppercase">
-                  AI in de kern
+              {/* Met mensen */}
+              <div className="flex-1 h-[110px] flex items-center justify-center">
+                <p className="text-[9px] font-mono font-bold text-black tracking-widest uppercase text-center leading-tight" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+                  Met mensen
                 </p>
               </div>
             </div>
 
-            {/* Matrix grid */}
-            <div className="flex flex-col gap-0">
+            {/* Right: top labels + grid */}
+            <div className="flex flex-col flex-1">
+              {/* Top axis labels row */}
+              <div className="flex border-b border-dashed border-fp-gray-border h-[36px]">
+                <div className="flex-1 flex items-center justify-center border-r border-dashed border-fp-gray-border">
+                  <p className="text-[9px] font-mono font-bold text-black tracking-widest uppercase">AI in de rand</p>
+                </div>
+                <div className="flex-1 flex items-center justify-center">
+                  <p className="text-[9px] font-mono font-bold text-black tracking-widest uppercase">AI in de kern</p>
+                </div>
+              </div>
+
               {/* Top row */}
-              <div className="flex gap-0 border-b border-dashed border-fp-gray-border">
-                {/* Top-left: Not available */}
-                <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center border-r border-dashed border-fp-gray-border relative bg-white">
+              <div className="flex border-b border-dashed border-fp-gray-border">
+                <div className="flex-1 h-[110px] flex items-center justify-center border-r border-dashed border-fp-gray-border relative bg-white">
                   <svg className="absolute w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                     <line x1="0" y1="0" x2="100" y2="100" stroke="#D2D8D5" strokeWidth="1" strokeDasharray="2 2" />
                     <line x1="100" y1="0" x2="0" y2="100" stroke="#D2D8D5" strokeWidth="1" strokeDasharray="2 2" />
                   </svg>
                 </div>
-                {/* Top-right: AI tools */}
-                <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center bg-white">
-                  <p className="text-[12px] font-mono font-normal text-black">
-                    AI tools
-                  </p>
+                <div className="flex-1 h-[110px] flex items-center justify-center bg-white">
+                  <p className="text-[12px] font-mono font-normal text-black">AI tools</p>
                 </div>
               </div>
 
               {/* Bottom row */}
-              <div className="flex gap-0">
-                {/* Bottom-left: Klassiek kantoor */}
-                <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center border-r border-dashed border-fp-gray-border bg-white">
-                  <p className="text-[12px] font-mono font-normal text-black">
-                    Klassiek kantoor
-                  </p>
+              <div className="flex">
+                <div className="flex-1 h-[110px] flex items-center justify-center border-r border-dashed border-fp-gray-border bg-white">
+                  <p className="text-[12px] font-mono font-normal text-black">Klassiek kantoor</p>
                 </div>
-                {/* Bottom-right: The sweet spot */}
-                <div className="flex-1 min-w-[150px] h-[110px] flex flex-col items-center justify-center gap-2" style={{ backgroundColor: "#F3FFE8" }}>
+                <div className="flex-1 h-[110px] flex flex-col items-center justify-center gap-2" style={{ backgroundColor: "#F3FFE8" }}>
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets%2Fb537b4d4e3c74d6797d6871c89517220%2F7e5d14f551b54df98c20079f07bb1fc2?format=webp&width=800&height=1200"
                     alt="Fruitpie wheel"
                     className="w-[32px] h-[32px]"
                   />
-                  <p className="text-[12px] font-mono font-normal text-black">
-                    The sweet spot
-                  </p>
+                  <p className="text-[12px] font-mono font-normal text-black">The sweet spot</p>
                 </div>
               </div>
             </div>
-          </div>
 
-        </div>
+          </div>
         </div>
 
         {/* Bottom divider - constrained to 700px and left-aligned */}
