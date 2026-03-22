@@ -51,7 +51,7 @@ export default function PricingSection() {
         </p>
 
         {/* Pricing table */}
-        <div className="max-w-[400px] border border-dashed border-fp-gray-border rounded-[5px]">
+        <div className="max-w-[500px] border border-dashed border-fp-gray-border rounded-[5px]">
           {/* Huidig kantoor row */}
           <div className="grid grid-cols-[1fr_1px_1fr] border-b border-dashed border-fp-gray-border">
             <div className="bg-white text-right text-[12px] font-mono font-normal text-black pr-6 py-3">

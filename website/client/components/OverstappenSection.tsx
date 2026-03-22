@@ -36,7 +36,7 @@ export default function OverstappenSection() {
         </p>
 
         {/* Overstap agent card */}
-        <div className="w-full max-w-[500px] border border-dashed border-[#A1A1A1] rounded-[5px] bg-white pt-5 pb-5 px-5">
+        <div className="w-full max-w-[500px] border border-dashed border-fp-gray-border rounded-[5px] bg-white pt-5 pb-5 px-5">
 
           {/* Title */}
           <p className="text-center text-[16px] font-sans text-black mb-4 leading-snug">
