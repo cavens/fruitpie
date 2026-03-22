@@ -34,7 +34,8 @@ export default function HoeZijnWijAndersSection() {
         </p>
 
         {/* Matrix */}
-        <div className="flex gap-0 -ml-4 max-w-[500px]">
+        <div className="max-w-[500px] border border-dashed border-fp-gray-border rounded-[5px] overflow-hidden">
+        <div className="flex gap-0">
 
           {/* Left axis labels */}
           <div className="flex flex-col gap-0 mr-0">
@@ -71,7 +72,7 @@ export default function HoeZijnWijAndersSection() {
             </div>
 
             {/* Matrix grid */}
-            <div className="flex flex-col border border-dashed border-fp-gray-border rounded-[5px] overflow-hidden gap-0">
+            <div className="flex flex-col gap-0">
               {/* Top row */}
               <div className="flex gap-0 border-b border-dashed border-fp-gray-border">
                 {/* Top-left: Not available */}
@@ -112,6 +113,7 @@ export default function HoeZijnWijAndersSection() {
             </div>
           </div>
 
+        </div>
         </div>
 
         {/* Bottom divider - constrained to 700px and left-aligned */}
