@@ -4,7 +4,7 @@ import { useFadeInSection } from "../hooks/useFadeInSection";
 export default function OverstappenSection() {
   const sectionRef = useFadeInSection();
   return (
-    <section ref={sectionRef} className="w-full pt-0 pb-[25px] relative z-20 fade-in-section" data-section="overstappen">
+    <section ref={sectionRef} className="w-full pt-0 pb-[25px] relative z-20 fade-in-section scroll-mt-[80px]" data-section="overstappen">
       <div className="px-4 sm:px-6 lg:px-[60px]">
 
         {/* Bowtie icon */}
