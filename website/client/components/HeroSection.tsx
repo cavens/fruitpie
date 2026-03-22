@@ -95,6 +95,7 @@ export default function HeroSection() {
             </button>
             <button
               ref={switchButtonRef as any}
+              onClick={() => document.querySelector('[data-section="overstappen"]')?.scrollIntoView({ behavior: 'smooth' })}
               className="h-8 px-5 bg-fp-gray-btn border border-fp-gray-stroke text-black text-[12px] font-mono font-normal rounded-[3px] whitespace-nowrap hover:bg-[#c8ced1] hover:scale-110 transition-all"
               style={{ transitionDuration: "80ms" }}
             >
