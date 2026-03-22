@@ -75,14 +75,14 @@ export default function HoeZijnWijAndersSection() {
               {/* Top row */}
               <div className="flex gap-0 border-b border-dashed border-fp-gray-border">
                 {/* Top-left: Not available */}
-                <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center border-r border-dashed border-fp-gray-border relative">
+                <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center border-r border-dashed border-fp-gray-border relative bg-white">
                   <svg className="absolute w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                     <line x1="0" y1="0" x2="100" y2="100" stroke="#D2D8D5" strokeWidth="1" strokeDasharray="2 2" />
                     <line x1="100" y1="0" x2="0" y2="100" stroke="#D2D8D5" strokeWidth="1" strokeDasharray="2 2" />
                   </svg>
                 </div>
                 {/* Top-right: AI tools */}
-                <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center">
+                <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center bg-white">
                   <p className="text-[14px] font-sans font-normal text-black">
                     AI tools
                   </p>
@@ -92,7 +92,7 @@ export default function HoeZijnWijAndersSection() {
               {/* Bottom row */}
               <div className="flex gap-0">
                 {/* Bottom-left: Klassiek kantoor */}
-                <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center border-r border-dashed border-fp-gray-border">
+                <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center border-r border-dashed border-fp-gray-border bg-white">
                   <p className="text-[14px] font-sans font-normal text-black">
                     Klassiek kantoor
                   </p>
