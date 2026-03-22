@@ -83,7 +83,7 @@ export default function HoeZijnWijAndersSection() {
                 </div>
                 {/* Top-right: AI tools */}
                 <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center bg-white">
-                  <p className="text-[14px] font-sans font-normal text-black">
+                  <p className="text-[12px] font-mono font-normal text-black">
                     AI tools
                   </p>
                 </div>
@@ -93,7 +93,7 @@ export default function HoeZijnWijAndersSection() {
               <div className="flex gap-0">
                 {/* Bottom-left: Klassiek kantoor */}
                 <div className="flex-1 min-w-[150px] h-[110px] flex items-center justify-center border-r border-dashed border-fp-gray-border bg-white">
-                  <p className="text-[14px] font-sans font-normal text-black">
+                  <p className="text-[12px] font-mono font-normal text-black">
                     Klassiek kantoor
                   </p>
                 </div>
@@ -104,7 +104,7 @@ export default function HoeZijnWijAndersSection() {
                     alt="Fruitpie wheel"
                     className="w-[32px] h-[32px]"
                   />
-                  <p className="text-[14px] font-sans font-normal text-black">
+                  <p className="text-[12px] font-mono font-normal text-black">
                     The sweet spot
                   </p>
                 </div>

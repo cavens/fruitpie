@@ -54,7 +54,7 @@ export default function PricingSection() {
         <div className="max-w-[400px] border border-dashed border-fp-gray-border rounded-[5px]">
           {/* Huidig kantoor row */}
           <div className="grid grid-cols-[1fr_1px_1fr] border-b border-dashed border-fp-gray-border">
-            <div className="bg-white text-right text-[16px] font-sans font-normal text-black pr-6 py-3">
+            <div className="bg-white text-right text-[12px] font-mono font-normal text-black pr-6 py-3">
               Huidig kantoor
             </div>
             <div className="border-l border-dashed border-fp-gray-border"></div>
@@ -66,7 +66,7 @@ export default function PricingSection() {
               >
                 −
               </button>
-              <span className="text-[16px] font-mono font-normal text-black flex-1 text-center">
+              <span className="text-[12px] font-mono font-normal text-black flex-1 text-center">
                 {monthlyAmount}EUR
               </span>
               <button
@@ -81,22 +81,22 @@ export default function PricingSection() {
 
           {/* Fruitpie row */}
           <div className="grid grid-cols-[1fr_1px_1fr] border-b border-dashed border-fp-gray-border">
-            <div className="bg-white text-right text-[16px] font-sans font-normal text-black pr-6 py-3">
+            <div className="bg-white text-right text-[12px] font-mono font-normal text-black pr-6 py-3">
               Fruitpie
             </div>
             <div className="border-l border-dashed border-fp-gray-border"></div>
-            <div className="bg-white text-center text-[16px] font-mono font-normal text-black px-4 py-3">
+            <div className="bg-white text-center text-[12px] font-mono font-normal text-black px-4 py-3">
               {fruitpieMonthly}EUR
             </div>
           </div>
 
           {/* Besparing 1j row */}
           <div className="grid grid-cols-[1fr_1px_1fr]">
-            <div className="bg-white text-right text-[16px] font-sans font-bold text-black pr-6 py-3">
+            <div className="bg-white text-right text-[12px] font-mono font-bold text-black pr-6 py-3">
               Besparing 1j
             </div>
             <div className="border-l border-dashed border-fp-gray-border"></div>
-            <div className="text-center text-[16px] font-mono font-bold text-black px-4 py-3 rounded-sm" style={{ backgroundColor: "#F3FFE8" }}>
+            <div className="text-center text-[12px] font-mono font-bold text-black px-4 py-3 rounded-sm" style={{ backgroundColor: "#F3FFE8" }}>
               {savingsYearly}EUR
             </div>
           </div>
