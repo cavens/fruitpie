@@ -16,13 +16,13 @@ export default function Index() {
       </div>
       {/* Overstappen section */}
       <OverstappenSection />
-      <div style={{ height: "1px", backgroundColor: "#D2D8D5", maxWidth: "500px", marginLeft: "60px", position: "relative", zIndex: 0 }} />
+      <div className="px-4 sm:px-6 lg:px-[60px]" style={{ position: "relative", zIndex: 0 }}><div style={{ height: "1px", backgroundColor: "#D2D8D5", maxWidth: "min(500px, 45vw)" }} /></div>
       {/* Pricing section */}
       <PricingSection />
-      <div style={{ height: "1px", backgroundColor: "#D2D8D5", maxWidth: "500px", marginLeft: "60px", position: "relative", zIndex: 0 }} />
+      <div className="px-4 sm:px-6 lg:px-[60px]" style={{ position: "relative", zIndex: 0 }}><div style={{ height: "1px", backgroundColor: "#D2D8D5", maxWidth: "min(500px, 45vw)" }} /></div>
       {/* Hoe zijn wij anders section */}
       <HoeZijnWijAndersSection />
-      <div style={{ height: "1px", backgroundColor: "#D2D8D5", maxWidth: "500px", marginLeft: "60px", position: "relative", zIndex: 0 }} />
+      <div className="px-4 sm:px-6 lg:px-[60px]" style={{ position: "relative", zIndex: 0 }}><div style={{ height: "1px", backgroundColor: "#D2D8D5", maxWidth: "min(500px, 45vw)" }} /></div>
       {/* Intake inplannen section */}
       <IntakeSection />
     </>
