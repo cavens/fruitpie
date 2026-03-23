@@ -1,7 +1,20 @@
+import { useState, useEffect } from "react";
 import { useFadeInSection } from "../hooks/useFadeInSection";
+
+const THUMBNAIL = "https://api.builder.io/api/v1/image/assets/TEMP/ac51920c27764e8045ce94af3c6acffcacc953f4?width=1604";
+// Replace with your actual video URL when ready
+const VIDEO_URL = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 export default function VideoSection() {
   const sectionRef = useFadeInSection();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener('play-video', handler);
+    return () => window.removeEventListener('play-video', handler);
+  }, []);
+
   return (
     <>
       {/* Green band — exactly the height of the video */}
@@ -27,13 +40,14 @@ export default function VideoSection() {
         >
           {/* Video thumbnail image */}
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/ac51920c27764e8045ce94af3c6acffcacc953f4?width=1604"
+            src={THUMBNAIL}
             alt="Video preview"
             className="w-full h-full object-cover"
           />
 
           {/* Play button — white circle with black triangle, centered */}
           <button
+            onClick={() => setOpen(true)}
             className="absolute inset-0 flex items-center justify-center hover:opacity-80 hover:scale-110 transition-all"
             aria-label="Play video"
           >
@@ -57,6 +71,34 @@ export default function VideoSection() {
 
       {/* Spacing below video before next section (Overstappen) */}
       <div style={{ height: "50px", backgroundColor: "white", margin: "0" }}></div>
+
+      {/* Video modal */}
+      {open && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-[900px] mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <video
+              className="w-full rounded-[3px]"
+              src={VIDEO_URL}
+              poster={THUMBNAIL}
+              controls
+              autoPlay
+              playsInline
+            />
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute -top-8 right-0 text-white text-[12px] font-mono hover:opacity-70"
+            >
+              SLUITEN ✕
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
