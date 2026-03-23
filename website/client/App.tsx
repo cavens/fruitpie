@@ -43,9 +43,12 @@ export default function App() {
         }
       });
 
-      // Handle first image (full plate)
+      // Handle first image (full plate) — show only after video section scrolls off screen
       if (el) {
-        if (scrollY < 600) {
+        const videoEl = document.querySelector('video, iframe');
+        const videoSection = videoEl?.closest('section') ?? document.querySelectorAll('section')[1];
+        const videoBottom = videoSection ? videoSection.getBoundingClientRect().bottom : 0;
+        if (videoBottom > 0) {
           el.style.display = "none";
         } else {
           el.style.display = "block";
@@ -78,16 +81,16 @@ export default function App() {
 
           let imageTop: number;
           if (isMobile) {
-            // Final position: bottom of image aligned to top of footer
+            // Final position: image sits higher above footer
             const footer = document.querySelector('footer');
             const imageHeight = 270;
             const footerTop = footer ? footer.getBoundingClientRect().top : window.innerHeight;
-            const finalTop = footerTop - imageHeight + 80;
+            const finalTop = footerTop - imageHeight - 100;
             const startTop = window.innerHeight;
             imageTop = startTop + progress * (finalTop - startTop);
           } else {
-            // Desktop: end 150px above top of viewport
-            imageTop = window.innerHeight + 600 - progress * (window.innerHeight + 750);
+            // Desktop: end ~50px from top of viewport
+            imageTop = window.innerHeight + 600 - progress * (window.innerHeight + 550);
           }
 
           emptyPlate.style.top = imageTop + "px";
