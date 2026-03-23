@@ -70,7 +70,7 @@ export default function HeroSection() {
           {/* Main heading — 40px, Roboto + Georgia italic mix (30% smaller, then 10% more), 80% width on desktop */}
           <h1
             ref={headingRef}
-            className="text-[40px] leading-tight font-sans font-normal text-black mb-4 max-w-[100%] lg:max-w-[80%]"
+            className="text-[40px] leading-tight font-sans font-normal text-black mb-4 max-w-[100%] lg:max-w-[60%]"
             style={{ transformStyle: "preserve-3d" }}
           >
             Het <strong className="font-bold">AI-native</strong> boekhoudkantoor. Meer tijd dus voor advies van de boekhouder en{" "}
@@ -79,7 +79,7 @@ export default function HeroSection() {
 
           {/* Body text — 16px Roboto (same as header slogan) */}
           <p className="text-[16px] font-sans font-normal text-black leading-normal mb-6 max-w-[580px]">
-            Een boekhouder die achter de feiten aanloopt, heeft geen tijd voor advies. Fruitpie combineert <strong>AI-automatisatie</strong> met <strong>echte expertise</strong> — zodat u altijd <strong>actuele cijfers</strong> hebt én een <strong>boekhouder die meedenkt.</strong>
+            Fruitpie combineert <strong>AI</strong> met <strong>echte expertise</strong> — dus <strong>actuele cijfers</strong> én een <strong>boekhouder die meedenkt.</strong>
           </p>
 
           {/* Buttons — same size as Plan intake button in header */}
