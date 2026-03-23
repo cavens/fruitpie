@@ -73,10 +73,8 @@ export default function HeroSection() {
             className="text-[40px] leading-tight font-sans font-normal text-black mb-4 max-w-[100%] lg:max-w-[80%]"
             style={{ transformStyle: "preserve-3d" }}
           >
-            Het{" "}
-            <strong className="font-bold">AI-native boekhoudkantoor</strong>
-            {" waarbij AI voorbereidt en de boekhouder afwerkt. Meer tijd voor advies en aan "}
-            <span className="font-serif italic">de helft van de prijs.</span>
+            Het <strong className="font-bold">AI-native</strong> boekhoudkantoor. Meer tijd dus voor advies van de boekhouder en{" "}
+            <span className="font-serif italic">aan halve prijs.</span>
           </h1>
 
           {/* Body text — 16px Roboto (same as header slogan) */}
