@@ -16,8 +16,9 @@ export default function HoeZijnWijAndersSection() {
         </div>
 
         {/* Heading */}
-        <h2 className="text-[40px] leading-tight font-sans font-normal text-black mb-8">
-          Hoe zijn wij anders?
+        <h2 className="text-[40px] leading-tight font-normal text-black mb-8">
+          <span className="font-sans">Meer </span>
+          <span className="font-serif italic">persoonlijk advies.</span>
         </h2>
 
         {/* Body text */}

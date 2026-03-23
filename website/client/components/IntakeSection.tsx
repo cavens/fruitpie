@@ -35,8 +35,8 @@ export default function IntakeSection() {
         </div>
 
         {/* Heading — left-aligned */}
-        <h2 className="text-[40px] leading-tight font-sans font-normal text-black mb-8">
-          <span className="font-serif italic">Proefgesprek plannen</span>
+        <h2 className="text-[40px] leading-tight font-normal text-black mb-8">
+          <span className="font-serif italic">Proefgesprek.</span>
         </h2>
 
         {/* Body text — left-aligned, max 500px wide */}

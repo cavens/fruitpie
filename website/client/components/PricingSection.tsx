@@ -40,7 +40,7 @@ export default function PricingSection() {
         {/* Heading */}
         <h2 className="text-[40px] leading-tight font-normal text-black mb-8">
           <span className="font-serif italic">Aan de helft van </span>
-          <span className="font-sans">de prijs</span>
+          <span className="font-sans">de prijs.</span>
         </h2>
 
         {/* Body text */}
