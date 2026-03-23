@@ -55,7 +55,7 @@ export default function PricingSection() {
           {/* Huidig kantoor row */}
           <div className="grid grid-cols-[1fr_1px_1fr] border-b border-dashed border-fp-gray-border">
             <div className="bg-white flex items-center justify-end text-[12px] font-mono font-normal text-black pr-6 py-3">
-              Huidig kantoor
+              Huidig kantoor per maand
             </div>
             <div className="border-l border-dashed border-fp-gray-border"></div>
             <div className="bg-white px-4 py-3 flex items-center justify-between gap-2">
@@ -82,7 +82,7 @@ export default function PricingSection() {
           {/* Fruitpie row */}
           <div className="grid grid-cols-[1fr_1px_1fr] border-b border-dashed border-fp-gray-border">
             <div className="bg-white text-right text-[12px] font-mono font-normal text-black pr-6 py-3">
-              Fruitpie
+              Fruitpie per maand
             </div>
             <div className="border-l border-dashed border-fp-gray-border"></div>
             <div className="bg-white text-center text-[12px] font-mono font-normal text-black px-4 py-3">
@@ -93,7 +93,7 @@ export default function PricingSection() {
           {/* Besparing 1j row */}
           <div className="grid grid-cols-[1fr_1px_1fr]">
             <div className="bg-white text-right text-[12px] font-mono font-bold text-black pr-6 py-3">
-              Besparing 1j
+              Besparing per jaar
             </div>
             <div className="border-l border-dashed border-fp-gray-border"></div>
             <div className="text-center text-[12px] font-mono font-bold text-black px-4 py-3 rounded-sm" style={{ backgroundColor: "#F3FFE8" }}>
