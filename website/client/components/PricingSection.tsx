@@ -44,12 +44,10 @@ export default function PricingSection() {
         </h2>
 
         {/* Body text */}
-        <p className="text-[16px] font-sans font-normal text-black leading-normal mb-14 max-w-[500px]">
+        <p className="text-[16px] font-sans font-normal text-black leading-normal mb-8 max-w-[500px]">
           Dankzij AI-automatisatie verwerken wij uw boekhouding sneller en met minder manuele handelingen. Dat vertaalt zich rechtstreeks in{" "}
           <strong>lagere kosten</strong>{" "}
-          — zonder in te leveren op kwaliteit. Integendeel: doordat onze boekhouders minder tijd kwijt zijn aan routinetaken, hebben zij meer ruimte voor advies en controle. Ook ons{" "}
-          <strong>uurtarief voor maatwerk</strong>{" "}
-          ligt daardoor lager dan het marktgemiddelde.
+          — zonder in te leveren op kwaliteit. Integendeel: doordat onze boekhouders minder tijd kwijt zijn aan routinetaken, hebben zij meer ruimte voor advies en controle.
         </p>
 
         {/* Pricing table */}

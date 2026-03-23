@@ -22,7 +22,7 @@ export default function HoeZijnWijAndersSection() {
         </h2>
 
         {/* Body text */}
-        <p className="text-[16px] font-sans font-normal text-black leading-normal mb-14 max-w-[500px]">
+        <p className="text-[16px] font-sans font-normal text-black leading-normal mb-8 max-w-[500px]">
           Met Fruitpie wordt uw boekhouding continu verwerkt en{" "}
           <strong>altijd up-to-date</strong>, waardoor u op{" "}
           <strong>elk moment inzicht heeft in uw cijfers.</strong>{" "}

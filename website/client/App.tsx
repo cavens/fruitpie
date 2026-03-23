@@ -80,18 +80,12 @@ export default function App() {
           const progress = Math.min(1, (scrollY - showStartY) / (showEndY - showStartY));
 
           let imageTop: number;
-          if (isMobile) {
-            // Final position: image sits higher above footer
-            const footer = document.querySelector('footer');
-            const imageHeight = 270;
-            const footerTop = footer ? footer.getBoundingClientRect().top : window.innerHeight;
-            const finalTop = footerTop - imageHeight - 100;
-            const startTop = window.innerHeight;
-            imageTop = startTop + progress * (finalTop - startTop);
-          } else {
-            // Desktop: end ~50px from top of viewport
-            imageTop = window.innerHeight + 600 - progress * (window.innerHeight + 550);
-          }
+          const footer = document.querySelector('footer');
+          const footerTop = footer ? footer.getBoundingClientRect().top : window.innerHeight;
+          const imageHeight = isMobile ? 270 : 540;
+          const finalTop = footerTop - imageHeight;
+          const startTop = isMobile ? window.innerHeight : window.innerHeight + 600;
+          imageTop = startTop + progress * (finalTop - startTop);
 
           emptyPlate.style.top = imageTop + "px";
         }
