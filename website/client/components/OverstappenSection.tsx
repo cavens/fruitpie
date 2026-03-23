@@ -23,7 +23,7 @@ export default function OverstappenSection() {
         </h2>
 
         {/* Body text */}
-        <p className="text-[16px] font-sans font-normal text-black leading-normal mb-14 max-w-[500px]">
+        <p className="text-[16px] font-sans font-normal text-black leading-normal mb-8 max-w-[500px]">
           Van boekhouder veranderen is{" "}
           <strong>wettelijk geregeld</strong>{" "}
           in België.{" "}

@@ -60,10 +60,10 @@ export default function HoeZijnWijAndersSection() {
             <div className="flex flex-col flex-1">
               {/* Top axis labels row */}
               <div className="flex border-b border-dashed border-fp-gray-border h-[36px]">
-                <div className="flex-1 flex items-center justify-center border-r border-dashed border-fp-gray-border">
+                <div className="flex-1 flex items-center justify-center border-r border-dashed border-fp-gray-border bg-white">
                   <p className="text-[9px] font-mono font-bold text-black tracking-widest uppercase">AI in de rand</p>
                 </div>
-                <div className="flex-1 flex items-center justify-center">
+                <div className="flex-1 flex items-center justify-center bg-white">
                   <p className="text-[9px] font-mono font-bold text-black tracking-widest uppercase">AI in de kern</p>
                 </div>
               </div>
@@ -96,6 +96,13 @@ export default function HoeZijnWijAndersSection() {
                 </div>
               </div>
             </div>
+
+          {/* Right axis labels column (empty) */}
+          <div className="flex flex-col border-l border-dashed border-fp-gray-border w-[50px] flex-shrink-0 bg-white">
+            <div className="h-[36px] border-b border-dashed border-fp-gray-border"></div>
+            <div className="flex-1 h-[110px] border-b border-dashed border-fp-gray-border"></div>
+            <div className="flex-1 h-[110px]"></div>
+          </div>
 
           </div>
         </div>

@@ -63,10 +63,10 @@ export default function App() {
         const intakeRect = intakeSection.getBoundingClientRect();
         const intakeTopAbsolute = scrollY + intakeRect.top;
 
-        // On mobile: start appearing 1 viewport height before intake section
+        // On mobile: start appearing 2 viewport heights before intake section
         // On desktop: keep original 1200px offset
         const showStartY = isMobile
-          ? intakeTopAbsolute - window.innerHeight
+          ? intakeTopAbsolute - window.innerHeight * 2
           : intakeTopAbsolute - 1200;
         const showEndY = intakeTopAbsolute;
 

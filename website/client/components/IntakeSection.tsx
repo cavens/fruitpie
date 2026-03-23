@@ -41,8 +41,7 @@ export default function IntakeSection() {
 
         {/* Body text — left-aligned, max 500px wide */}
         <p className="text-[16px] font-sans font-normal text-black leading-normal mb-10 max-w-[500px]">
-          Het proefgesprek van ~15min is <strong>volledig vrijblijvend.</strong> We bekijken kort hoe
-          complex je bedrijf is en kunnen <strong>meteen een duidelijke
+          Het proefgesprek van ~15min is <strong>volledig vrijblijvend.</strong> We bekijken kort hoe je boekhouding momenteel georganiseerd is en kunnen <strong>meteen een duidelijke
           prijs</strong> geven. Samen overlopen we <strong>hoe een overdracht
           verloopt</strong> en tonen we in een <strong>korte demo hoe we werken.</strong>{" "}
           Zo weet je meteen waar je aan toe bent.
