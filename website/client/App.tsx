@@ -53,7 +53,7 @@ export default function App() {
         } else {
           el.style.display = "block";
           // Slower parallax on mobile
-          const speed = isMobile ? 0.2 : 0.3;
+          const speed = isMobile ? 0.3 : 0.4;
           el.style.top = (-400 + scrollY * speed) + "px";
         }
       }
