@@ -59,8 +59,8 @@ export default function OverstappenSection() {
           </div>
 
           {/* Footer note */}
-          <p className="text-center font-mono text-[11px] text-[#666666] leading-snug">
-            (Tijdens uw eventuele opzegtermijn (max 3m) betaalt u niet voor Fruitpie)
+          <p className="text-center text-[16px] font-sans text-black leading-snug">
+            Tijdens uw eventuele opzegtermijn (max 3m) betaalt u niet voor Fruitpie
           </p>
 
         </div>

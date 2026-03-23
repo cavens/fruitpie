@@ -85,9 +85,10 @@ export default function UnicornStudioEffect() {
       style={{
         position: "absolute",
         top: 0,
-        left: 0,
-        width: "100%",
+        left: "calc(-50vw + 50%)",
+        width: "100vw",
         height: "100%",
+        overflow: "hidden",
         zIndex: 0,
       }}
     />

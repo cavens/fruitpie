@@ -39,8 +39,8 @@ export default function PricingSection() {
 
         {/* Heading */}
         <h2 className="text-[40px] leading-tight font-normal text-black mb-8">
-          <span className="font-sans">Transparante </span>
-          <span className="font-serif italic">pricing</span>
+          <span className="font-serif italic">Aan de helft van </span>
+          <span className="font-sans">de prijs</span>
         </h2>
 
         {/* Body text */}
@@ -103,7 +103,7 @@ export default function PricingSection() {
         </div>
 
         {/* Footer note - centered under matrix */}
-        <p className="text-[16px] font-sans font-normal text-black mt-6 text-center max-w-[400px]">
+        <p className="text-[16px] font-sans font-normal text-black mt-4 text-center max-w-[500px]">
           Maatwerk aan 85EUR/h uurtarief
         </p>
 
