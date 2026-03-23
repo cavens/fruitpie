@@ -107,8 +107,6 @@ export default function PricingSection() {
           Maatwerk aan 85EUR/h uurtarief
         </p>
 
-        {/* Bottom divider - constrained to 700px and left-aligned */}
-        <div style={{ height: "1px", backgroundColor: "#D2D8D5", maxWidth: "500px", marginTop: "25px", position: "relative", zIndex: -1 }}></div>
 
       </div>
     </section>

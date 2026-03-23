@@ -16,10 +16,13 @@ export default function Index() {
       </div>
       {/* Overstappen section */}
       <OverstappenSection />
+      <div style={{ height: "1px", backgroundColor: "#D2D8D5", maxWidth: "500px", marginLeft: "60px", position: "relative", zIndex: 0 }} />
       {/* Pricing section */}
       <PricingSection />
+      <div style={{ height: "1px", backgroundColor: "#D2D8D5", maxWidth: "500px", marginLeft: "60px", position: "relative", zIndex: 0 }} />
       {/* Hoe zijn wij anders section */}
       <HoeZijnWijAndersSection />
+      <div style={{ height: "1px", backgroundColor: "#D2D8D5", maxWidth: "500px", marginLeft: "60px", position: "relative", zIndex: 0 }} />
       {/* Intake inplannen section */}
       <IntakeSection />
     </>
