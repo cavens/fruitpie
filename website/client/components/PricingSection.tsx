@@ -45,9 +45,11 @@ export default function PricingSection() {
 
         {/* Body text */}
         <p className="text-[16px] font-sans font-normal text-black leading-normal mb-14 max-w-[500px]">
-          Van boekhouder veranderen is{" "}
-          <strong>wettelijk geregeld</strong>{" "}
-          in België. U tekent een nieuwe opdrachtbrief bij Fruitpie, waarna wij uw huidige boekhouder contacteren en het dossier opvragen. Zo verloopt de overdracht vlot en zonder onderbreking.
+          Dankzij AI-automatisatie verwerken wij uw boekhouding sneller en met minder manuele handelingen. Dat vertaalt zich rechtstreeks in{" "}
+          <strong>lagere kosten</strong>{" "}
+          — zonder in te leveren op kwaliteit. Integendeel: doordat onze boekhouders minder tijd kwijt zijn aan routinetaken, hebben zij meer ruimte voor advies en controle. Ook ons{" "}
+          <strong>uurtarief voor maatwerk</strong>{" "}
+          ligt daardoor lager dan het marktgemiddelde.
         </p>
 
         {/* Pricing table */}
