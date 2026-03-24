@@ -105,6 +105,10 @@ const CHATGPT = { x: 237, y: 209, w: 74, h: 74, cx: 274, cy: 246 };
 const CLAUDE  = { x: 462, y: 127, w: 76, h: 76, cx: 500, cy: 165 };
 const COPILOT = { x: 462, y: 410, w: 76, h: 68, cx: 500, cy: 444 };
 
+// ─── SUPERVISOR ICON (node 1-67, 66×66, center at 33,33) ─────────────────────
+const SUPERVISOR =
+  "M20.1418 29.7657L12.4637 22.298L14.357 20.3522L20.0367 26.0319L30.5546 15.6191L32.5004 17.4598L20.1418 29.7657ZM64.0542 66L37.9697 39.9155C35.9012 41.7386 33.4996 43.1323 30.7649 44.0964C28.0303 45.0606 25.3657 45.5426 22.7713 45.5426C16.3904 45.5426 11 43.3339 6.6 38.9163C2.2 34.4988 0 29.1171 0 22.7713C0 16.4255 2.2 11.0438 6.6 6.62629C11 2.20876 16.3904 0 22.7713 0C29.1171 0 34.4988 2.20876 38.9163 6.62629C43.3339 11.0438 45.5426 16.4255 45.5426 22.7713C45.5426 25.6112 45.0167 28.3984 43.9649 31.1331C42.9131 33.8677 41.5633 36.1641 39.9155 38.0223L66 64.0542L64.0542 66ZM22.7713 42.8606C28.4159 42.8606 33.1753 40.9323 37.0494 37.0757C40.9235 33.2191 42.8606 28.451 42.8606 22.7713C42.8606 17.0916 40.9235 12.3235 37.0494 8.46693C33.1753 4.61036 28.4159 2.68207 22.7713 2.68207C17.0916 2.68207 12.3235 4.61036 8.46693 8.46693C4.61036 12.3235 2.68207 17.0916 2.68207 22.7713C2.68207 28.451 4.61036 33.2191 8.46693 37.0757C12.3235 40.9323 17.0916 42.8606 22.7713 42.8606Z";
+
 // ─── HANDSHAKE ICON (node 1-320, center ≈ 526,250) ────────────────────────────
 const HANDSHAKE =
   "M524.609 278.69C525.14 278.69 525.694 278.562 526.27 278.305C526.846 278.049 527.326 277.724 527.71 277.332L554.33 250.113C555.393 249.026 556.228 248 556.833 247.034C557.438 246.067 557.741 244.935 557.741 243.637C557.741 242.308 557.453 241.056 556.877 239.878C556.301 238.701 555.512 237.568 554.508 236.481L542.371 224.118C541.426 223.151 540.444 222.442 539.425 221.989C538.407 221.536 537.307 221.31 536.125 221.31C534.944 221.31 533.815 221.604 532.737 222.193C531.659 222.782 530.677 223.544 529.791 224.48L526.292 228.058L532.715 234.625C533.335 235.289 533.815 236.036 534.154 236.866C534.494 237.697 534.664 238.534 534.664 239.38C534.664 241.04 534.148 242.399 533.116 243.456C532.084 244.513 530.769 245.041 529.171 245.041C528.344 245.041 527.54 244.913 526.757 244.656C525.975 244.399 525.273 243.954 524.653 243.32L518.053 236.708L503.038 252.061C502.595 252.526 502.263 253.034 502.041 253.587C501.82 254.139 501.709 254.69 501.709 255.238C501.709 256.214 502.004 257 502.595 257.597C503.185 258.193 503.953 258.492 504.898 258.492C505.43 258.492 505.983 258.356 506.559 258.084C507.135 257.812 507.615 257.495 507.999 257.133L518.851 246.037L520.49 247.713L509.593 258.809C509.15 259.262 508.818 259.767 508.597 260.326C508.375 260.884 508.264 261.435 508.264 261.979C508.264 262.885 508.574 263.654 509.195 264.289C509.815 264.923 510.573 265.24 511.469 265.24C512.02 265.24 512.583 265.104 513.159 264.832C513.735 264.56 514.2 264.243 514.556 263.879L526.469 251.653L528.108 253.329L516.193 265.511C515.78 265.934 515.455 266.435 515.219 267.013C514.982 267.592 514.864 268.148 514.864 268.682C514.864 269.617 515.167 270.395 515.772 271.014C516.378 271.633 517.138 271.942 518.053 271.942C518.585 271.942 519.121 271.829 519.661 271.603C520.202 271.376 520.699 271.037 521.154 270.584L533.069 258.401L534.708 260.077L522.793 272.259C522.35 272.724 522.018 273.263 521.796 273.876C521.575 274.489 521.464 275.032 521.464 275.505C521.464 276.481 521.774 277.256 522.394 277.83C523.014 278.403 523.753 278.69 524.609 278.69ZM524.653 281C522.97 281 521.553 280.358 520.401 279.075C519.249 277.792 518.865 276.199 519.249 274.297C517.241 274.418 515.588 273.897 514.288 272.735C512.989 271.572 512.428 269.844 512.605 267.549C510.361 267.67 508.641 267.119 507.445 265.896C506.249 264.673 505.769 262.975 506.005 260.801C504.204 260.982 502.654 260.572 501.355 259.569C500.055 258.568 499.406 257.106 499.406 255.186C499.406 254.34 499.553 253.502 499.849 252.672C500.144 251.842 500.616 251.094 501.266 250.43L518.053 233.266L526.071 241.463C526.425 241.825 526.868 242.135 527.399 242.392C527.931 242.648 528.522 242.776 529.171 242.776C529.998 242.776 530.736 242.47 531.386 241.858C532.036 241.246 532.36 240.448 532.36 239.463C532.36 238.804 532.235 238.202 531.984 237.659C531.733 237.115 531.429 236.662 531.073 236.298L519.161 224.118C518.245 223.182 517.283 222.48 516.274 222.012C515.264 221.544 514.174 221.31 513.004 221.31C511.823 221.31 510.745 221.529 509.77 221.966C508.796 222.404 507.851 223.106 506.936 224.072L497.058 234.126C496.172 235.032 495.471 236.104 494.954 237.342C494.437 238.58 494.194 239.908 494.223 241.327C494.253 242.354 494.378 243.275 494.6 244.09C494.821 244.905 495.124 245.63 495.508 246.264L493.736 248.075C493.263 247.23 492.865 246.218 492.54 245.041C492.215 243.863 492.038 242.626 492.008 241.327C491.949 239.697 492.2 238.119 492.761 236.595C493.322 235.07 494.179 233.719 495.331 232.541L505.341 222.306C506.404 221.219 507.563 220.396 508.818 219.838C510.073 219.279 511.498 219 513.092 219C514.634 219 516.02 219.302 517.251 219.906C518.482 220.51 519.69 221.415 520.876 222.623L524.599 226.427L528.323 222.623C529.479 221.415 530.687 220.51 531.948 219.906C533.207 219.302 534.6 219 536.125 219C537.838 219 539.337 219.317 540.621 219.951C541.906 220.585 543.08 221.444 544.144 222.529L556.191 234.806C557.401 236.074 558.339 237.448 559.003 238.927C559.668 240.406 560 241.976 560 243.637C560 245.267 559.653 246.694 558.959 247.917C558.265 249.14 557.298 250.4 556.058 251.698L529.304 279.053C528.595 279.777 527.857 280.283 527.089 280.57C526.322 280.857 525.51 281 524.653 281Z";
@@ -210,7 +214,7 @@ export const FruitpieStoryboard: React.FC = () => {
   // ── Build-up: hard cut from Fruitpie logo, AI triangle pops in on same beat ──
   const TRANS2 = 375; // B21 ≈ 12.5s
   // ── Full composition: appears after build-up ──
-  const COMP = 600;
+  const COMP = 950;
 
   // Build step 1: AI triangle springs in immediately on the cut
   const aiTriSp = sp(375);
@@ -224,6 +228,27 @@ export const FruitpieStoryboard: React.FC = () => {
   const marchingAntsOpacity = frame >= STEP3
     ? Math.min(1, (frame - STEP3) / 15)
     : 0;
+  // Build step 4: left (Bedrijf) triangle + three dots (B33=579, after second text exits)
+  const STEP4 = 579;
+  const leftTriSp = sp(STEP4);
+  const dotsSp    = sp(STEP4 + 4);
+  // Build step 5: text + left connector marching ants + file transfer (B36=630, ≈21s)
+  const STEP5 = 630;
+  const step5Op       = frame >= STEP5 ? Math.min(1, (frame - STEP5) / 15) : 0;
+  // Build step 6: supervisor replaces fruitpie logo + "maar de boekhouder superviseert" (B41=715)
+  const STEP6 = 715;
+  const supervisorSp  = sp(STEP6);
+  const wiggle6       = frame >= STEP6 ? Math.sin((frame - STEP6) * 0.35) * 12 : 0;
+  const step6LineOp   = frame >= STEP6 ? Math.min(1, (frame - STEP6) / 15) : 0;
+  const marchOffset6  = frame >= STEP6 ? ((frame - STEP6) * 0.5) % 4 : 0;
+  // Build step 7: text changes to "Resultaat" (B47≈815)
+  const STEP7 = 815;
+  const ICON_SPAN5    = 250;   // same as Screen 2 (ICON_COPIES * ICON_SPACING)
+  const ICON_COPIES5  = 5;     // same as Screen 2
+  const ICON_SPACING5 = 50;    // same as Screen 2
+  const iconDrift5    = frame >= STEP5 ? Math.max(0, frame - STEP5) * 2.5 : 0; // fast speed, same as Screen 2
+  const wrappedDrift5 = iconDrift5 % ICON_SPAN5;
+  const marchOffset5  = frame >= STEP5 ? ((frame - STEP5) * 0.5) % 4 : 0;
   // Exit: scene 1/2 elements scale + fade out before the flash
   const exitSp    = sp(TRANS - 15, SMOOTH);
   const exitScale = Math.max(0, 1 - exitSp);
@@ -536,12 +561,122 @@ export const FruitpieStoryboard: React.FC = () => {
               opacity={marchingAntsOpacity}
             />
           )}
+          {/* Step 6: Mask rect — blanks static outline along AI→right connector.
+              Aligned with outline's 60° direction, starts before (409,233) and ends
+              past (482,347) with a few px margin on each side. */}
+          {frame >= STEP6 && (
+            <rect x="406" y="226" width="172" height="26"
+              transform="rotate(60 406 226)"
+              fill="#FBFFF7"
+            />
+          )}
+          {/* Step 4: Left (Bedrijf) triangle */}
+          {frame >= STEP4 && (
+            <g style={{ transformOrigin: "207px 442px", transform: `scale(${leftTriSp})` }}>
+              <path fillRule="evenodd" clipRule="evenodd" d="M290.903 368.15C294.76 368.144 297.171 372.322 295.237 375.658L213.431 516.776C211.502 520.103 206.697 520.098 204.774 516.769L123.466 375.938C121.543 372.609 123.942 368.445 127.787 368.438L290.903 368.15Z" fill="black"/>
+              <text x="238" y="436" textAnchor="middle" dominantBaseline="middle" fill="white"
+                transform="rotate(-60, 238, 436)"
+                style={{ fontFamily: monoFamily, fontSize: 18, fontWeight: 400 }}>Bedrijf</text>
+            </g>
+          )}
+          {/* Step 4: Three connector dots */}
+          {frame >= STEP4 && (
+            <>
+              <ellipse cx="400.371" cy="217.5" rx="9" ry="8.5" fill="black"
+                style={{ transformOrigin: "400px 218px", transform: `scale(${dotsSp})` }}/>
+              <circle cx="308.871" cy="362.5" r="8.5" fill="black"
+                style={{ transformOrigin: "309px 363px", transform: `scale(${dotsSp})` }}/>
+              <ellipse cx="487.871" cy="362.5" rx="9" ry="8.5" fill="black"
+                style={{ transformOrigin: "488px 363px", transform: `scale(${dotsSp})` }}/>
+            </>
+          )}
+          {/* Step 5: Animated marching ants — AI dot → left dot, with arrowheads at both ends */}
+          {frame >= STEP5 && (
+            <>
+              <line
+                x1="391" y1="233" x2="318" y2="347"
+                stroke="black" strokeWidth="1"
+                strokeDasharray="2 2"
+                strokeDashoffset={-marchOffset5}
+                opacity={step5Op}
+              />
+              {/* Arrowhead at AI end, pointing toward AI dot */}
+              <polygon
+                points="391,233 390.7,241.1 383.9,236.9"
+                fill="black" opacity={step5Op}
+              />
+              {/* Arrowhead at left dot end, pointing toward left dot */}
+              <polygon
+                points="318,347 318.3,338.9 325.1,343.1"
+                fill="black" opacity={step5Op}
+              />
+            </>
+          )}
+          {/* Step 6: Animated marching ants — exact mirror of STEP5 left connector about x=400.
+              Left line (391,233)→(318,347) mirrored → (409,233)→(482,347).
+              Arrowheads are x-reflected from the left arrowhead points. */}
+          {frame >= STEP6 && (
+            <>
+              <line
+                x1="409" y1="233" x2="482" y2="347"
+                stroke="black" strokeWidth="1"
+                strokeDasharray="2 2"
+                strokeDashoffset={-marchOffset6}
+                opacity={step6LineOp}
+              />
+              {/* Arrowhead at AI end — mirror of "391,233 390.7,241.1 383.9,236.9" */}
+              <polygon
+                points="409,233 409.3,241.1 416.1,236.9"
+                fill="black" opacity={step6LineOp}
+              />
+              {/* Arrowhead at right dot end — mirror of "318,347 318.3,338.9 325.1,343.1" */}
+              <polygon
+                points="482,347 481.7,338.9 474.9,343.1"
+                fill="black" opacity={step6LineOp}
+              />
+            </>
+          )}
+          {/* Step 5: file transfer icons — exact Screen-2 animation, rotated 122° to follow left connector,
+              scaled 0.7 (30% smaller). Group x-axis = AI→Bedrijf direction; positive y = upper-left of line.
+              Connector midpoint in local coords: (354.6, 290). Hidden during STEP6 ("superviseert"). */}
+          {(frame >= STEP5 && frame < STEP6 || frame >= STEP7) && (
+            <g style={{ transform: "translate(354.6px, 290px) rotate(122deg) scale(0.7)", opacity: step5Op }}>
+              {/* Row 1 (upper): DOC moving right → left (−x), y=70 */}
+              {Array.from({ length: ICON_COPIES5 }, (_, i) => {
+                const pos     = (wrappedDrift5 + i * ICON_SPACING5) % ICON_SPAN5;
+                const fade    = 20;
+                const opacity = pos < fade ? pos / fade : pos > ICON_SPAN5 - fade ? (ICON_SPAN5 - pos) / fade : 1;
+                const x       = ICON_SPAN5 / 2 - pos;
+                return (
+                  <path key={`ldoc${i}`} d={DOC} fill="black" opacity={opacity}
+                    style={{ transform: `translate(${x - 444.5}px, ${70 - 247.5}px)` }}/>
+                );
+              })}
+              {/* Row 2 (lower): CHART moving left → right (+x), y=140 */}
+              {Array.from({ length: ICON_COPIES5 }, (_, i) => {
+                const pos     = (wrappedDrift5 + i * ICON_SPACING5) % ICON_SPAN5;
+                const fade    = 20;
+                const opacity = pos < fade ? pos / fade : pos > ICON_SPAN5 - fade ? (ICON_SPAN5 - pos) / fade : 1;
+                const x       = pos - ICON_SPAN5 / 2;
+                return (
+                  <path key={`lcht${i}`} d={CHART} fill="black" opacity={opacity}
+                    style={{ transform: `translate(${x - 403}px, ${140 - 349}px)` }}/>
+                );
+              })}
+            </g>
+          )}
         </g>
         {/* Step 3: Fruitpie logotype — 60° rotated, centered between the two marching-ants diagonals
             WM natural center ≈ (400,300); target screen center ≈ (477,265); scale 0.28 */}
-        {frame >= STEP3 && (
+        {frame >= STEP3 && frame < STEP6 && (
           <g style={{ transform: `translate(483px, 272px) rotate(60deg) scale(${0.28 * sp(STEP3)}) translate(-400px, -300px)` }}>
             {WM.map((d, i) => <path key={i} d={d} fill="black" />)}
+          </g>
+        )}
+        {/* Step 6: Supervisor icon replaces Fruitpie logotype, wiggles like handshake */}
+        {frame >= STEP6 && frame < COMP && (
+          <g style={{ transform: `translate(483px, 272px) rotate(-22.5deg) scale(${0.8 * supervisorSp}) rotate(${wiggle6}deg) translate(-33px, -33px)` }}>
+            <path d={SUPERVISOR} fill="black"/>
           </g>
         )}
         </>
@@ -622,8 +757,79 @@ export const FruitpieStoryboard: React.FC = () => {
             }}
           />
           <WordReveal
+            text="Ai doet het werk"
+            startFrame={STEP5}
+            exitFrame={695}
+            style={{
+              position: "absolute",
+              top: 415,
+              left: 250,
+              width: 300,
+              fontFamily,
+              fontSize: 20,
+              fontWeight: 300,
+              color: "#000000",
+              letterSpacing: 0,
+              lineHeight: "24px",
+              justifyContent: "center",
+            }}
+          />
+          <WordReveal
+            text="maar de boekhouder superviseert"
+            startFrame={STEP6}
+            exitFrame={STEP7 - 5}
+            style={{
+              position: "absolute",
+              top: 415,
+              left: 335,
+              width: 130,
+              fontFamily,
+              fontSize: 20,
+              fontWeight: 300,
+              color: "#000000",
+              letterSpacing: 0,
+              lineHeight: "24px",
+              justifyContent: "center",
+            }}
+          />
+          <WordReveal
+            text="Resultaat:"
+            startFrame={STEP7}
+            style={{
+              position: "absolute",
+              top: 415,
+              left: 265,
+              width: 270,
+              fontFamily,
+              fontSize: 20,
+              fontWeight: 300,
+              color: "#000000",
+              letterSpacing: 0,
+              lineHeight: "24px",
+              justifyContent: "center",
+            }}
+          />
+          <WordReveal
+            text="Betere kwaliteit en 24/7 inzicht"
+            startFrame={STEP7 + 8}
+            style={{
+              position: "absolute",
+              top: 440,
+              left: 305,
+              width: 190,
+              fontFamily,
+              fontSize: 20,
+              fontWeight: 300,
+              color: "#000000",
+              letterSpacing: 0,
+              lineHeight: "24px",
+              justifyContent: "center",
+            }}
+          />
+          <WordReveal
             text="...en bouwden samen een ai-native boekhoudkantoor!"
             startFrame={STEP3}
+            exitFrame={562}
             style={{
               position: "absolute",
               bottom: 80,

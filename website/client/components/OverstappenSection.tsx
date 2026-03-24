@@ -32,7 +32,7 @@ export default function OverstappenSection() {
           <strong>wij uw huidige boekhouder contacteren</strong>{" "}
           en het{" "}
           <strong>dossier opvragen.</strong>{" "}
-          Tijdens een eventuele opzeg periode bij uw huidige kantaar betaalt u niet voor Fruitpie.
+          Tijdens een eventuele opzeg periode bij uw huidige kantoor betaalt u niet voor Fruitpie.
         </p>
 
         {/* Overstap agent card */}
