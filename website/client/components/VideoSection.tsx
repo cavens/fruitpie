@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { useFadeInSection } from "../hooks/useFadeInSection";
+import { useMouseSticky } from "../hooks/useMouseSticky";
 
-const THUMBNAIL = "https://api.builder.io/api/v1/image/assets/TEMP/ac51920c27764e8045ce94af3c6acffcacc953f4?width=1604";
+const THUMBNAIL = "/video-thumbnail.jpg";
 // Replace with your actual video URL when ready
 const VIDEO_URL = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 export default function VideoSection() {
   const sectionRef = useFadeInSection();
   const [open, setOpen] = useState(false);
+  const { ref: playBtnRef } = useMouseSticky(50);
 
   useEffect(() => {
     const handler = () => setOpen(true);
@@ -45,27 +47,41 @@ export default function VideoSection() {
             className="w-full h-full object-cover"
           />
 
-          {/* Play button — white circle with black triangle, centered */}
-          <button
+          {/* Invisible full-area click target */}
+          <div
+            className="absolute inset-0 cursor-pointer"
             onClick={() => setOpen(true)}
-            className="absolute inset-0 flex items-center justify-center hover:opacity-80 hover:scale-110 transition-all"
-            aria-label="Play video"
-          >
-            <svg
-              width="82"
-              height="82"
-              viewBox="0 0 82 82"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-16 h-16 md:w-20 md:h-20"
+          />
+
+          {/* Play button — flex-centered wrapper so magnetic transform doesn't break centering */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <button
+              ref={playBtnRef as any}
+              onClick={() => setOpen(true)}
+              className="group pointer-events-auto"
+              aria-label="Play video"
             >
-              <circle cx="41" cy="41" r="41" fill="white" />
-              <path
-                d="M55.2857 41.2858L34.2857 53.4101L34.2857 29.1614L55.2857 41.2858Z"
-                fill="black"
-              />
-            </svg>
-          </button>
+              <svg
+                width="82"
+                height="82"
+                viewBox="0 0 82 82"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-16 h-16 md:w-20 md:h-20"
+              >
+                <circle cx="41" cy="41" r="41" fill="white" />
+                <path
+                  d="M55.2857 41.2858L34.2857 53.4101L34.2857 29.1614L55.2857 41.2858Z"
+                  fill="black"
+                  style={{
+                    transformOrigin: "44.78px 41.29px",
+                    transition: "transform 0.15s ease",
+                  }}
+                  className="group-hover:scale-125"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
 

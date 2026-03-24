@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import { useFadeInSection } from "../hooks/useFadeInSection";
+import { useMouseSticky } from "../hooks/useMouseSticky";
 
 export default function PricingSection() {
   const sectionRef = useFadeInSection();
+  const { ref: minusRef } = useMouseSticky(40);
+  const { ref: plusRef } = useMouseSticky(40);
   const presets = [500, 750, 1500, 2500];
   const [currentIndex, setCurrentIndex] = useState(1); // Start at 750
   const monthlyAmount = presets[currentIndex];
@@ -60,8 +63,9 @@ export default function PricingSection() {
             <div className="border-l border-dashed border-fp-gray-border"></div>
             <div className="bg-white px-4 py-3 flex items-center justify-between gap-2">
               <button
+                ref={minusRef as any}
                 onClick={handleMinus}
-                className="text-[20px] font-bold text-black hover:opacity-70 hover:scale-110 transition-all"
+                className="text-[20px] font-bold text-black hover:opacity-70 transition-opacity"
                 aria-label="Decrease amount"
               >
                 −
@@ -70,8 +74,9 @@ export default function PricingSection() {
                 {monthlyAmount}EUR
               </span>
               <button
+                ref={plusRef as any}
                 onClick={handlePlus}
-                className="text-[20px] font-bold text-black hover:opacity-70 hover:scale-110 transition-all"
+                className="text-[20px] font-bold text-black hover:opacity-70 transition-opacity"
                 aria-label="Increase amount"
               >
                 +

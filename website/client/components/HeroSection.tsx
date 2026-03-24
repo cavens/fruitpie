@@ -6,8 +6,8 @@ import UnicornStudioEffect from "./UnicornStudioEffect";
 export default function HeroSection() {
   const sectionRef = useFadeInSection();
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const { ref: videoButtonRef } = useMouseSticky();
-  const { ref: switchButtonRef } = useMouseSticky();
+  const { ref: videoButtonRef } = useMouseSticky(30);
+  const { ref: switchButtonRef } = useMouseSticky(30);
 
 
   // 3D parallax effect on heading based on mouse movement - DISABLED
@@ -90,16 +90,14 @@ export default function HeroSection() {
                 document.querySelector('[data-section="video"]')?.scrollIntoView({ behavior: 'smooth' });
                 setTimeout(() => window.dispatchEvent(new CustomEvent('play-video')), 600);
               }}
-              className="h-8 px-5 bg-black text-white text-[12px] font-mono font-normal rounded-[3px] whitespace-nowrap hover:bg-gray-900 hover:scale-110 transition-all"
-              style={{ transitionDuration: "80ms" }}
+              className="h-8 px-5 bg-black text-white text-[12px] font-mono font-normal rounded-[3px] whitespace-nowrap hover:bg-gray-900 transition-colors"
             >
               Bekijk de video
             </button>
             <button
               ref={switchButtonRef as any}
               onClick={() => document.querySelector('[data-section="overstappen"]')?.scrollIntoView({ behavior: 'smooth' })}
-              className="h-8 px-5 bg-fp-gray-btn border border-fp-gray-stroke text-black text-[12px] font-mono font-normal rounded-[3px] whitespace-nowrap hover:bg-[#c8ced1] hover:scale-110 transition-all"
-              style={{ transitionDuration: "80ms" }}
+              className="h-8 px-5 bg-fp-gray-btn border border-fp-gray-stroke text-black text-[12px] font-mono font-normal rounded-[3px] whitespace-nowrap hover:bg-[#c8ced1] transition-colors"
             >
               Overstappen?
             </button>

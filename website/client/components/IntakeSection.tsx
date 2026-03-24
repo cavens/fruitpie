@@ -53,8 +53,7 @@ export default function IntakeSection() {
           href="https://cal.com/fruitpie/15min"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center h-8 px-5 bg-black text-white text-[12px] font-mono font-normal rounded-[3px] whitespace-nowrap hover:bg-gray-900 hover:scale-110 transition-all"
-          style={{ transitionDuration: "80ms" }}
+          className="inline-flex items-center justify-center h-8 px-5 bg-black text-white text-[12px] font-mono font-normal rounded-[3px] whitespace-nowrap hover:bg-gray-900 transition-colors"
         >
           Prik moment!
         </a>

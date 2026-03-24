@@ -1,71 +1,84 @@
 import { useRef } from "react";
 
-// Global listener setup
-let isListenerAttached = false;
-const buttonElements = new Set<HTMLButtonElement>();
-const MAX_OFFSET = 10; // Increased to 10px for more pronounced movement
+// ─── Constants ────────────────────────────────────────────────────────────────
+const MAX_OFFSET     = 8;    // max px translation toward mouse
+const MAX_SCALE      = 1.08; // max scale when mouse is at button center
+const DEFAULT_RADIUS = 80;   // attraction zone: px beyond button edge
+const LERP           = 0.14; // smoothing factor (lower = smoother/slower)
 
-function setupGlobalMouseListener() {
-  if (isListenerAttached) return;
-  isListenerAttached = true;
+// ─── Shared state (one rAF loop for all buttons) ──────────────────────────────
+type BtnState = {
+  el: HTMLElement;
+  radius: number;
+  x: number; y: number; scale: number;   // current (lerped)
+  tx: number; ty: number; tScale: number; // target
+};
 
-  const handleDocumentMouseMove = (e: MouseEvent) => {
-    buttonElements.forEach((button) => {
-      const rect = button.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+const buttons = new Map<HTMLElement, BtnState>();
+let mouseX = 0;
+let mouseY = 0;
+let rafRunning = false;
 
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-
-      // Check if mouse is within the button + 20px zone around it
-      const expandedRect = {
-        left: rect.left - 20,
-        right: rect.right + 20,
-        top: rect.top - 20,
-        bottom: rect.bottom + 20,
-      };
-
-      const isInZone = mouseX >= expandedRect.left && mouseX <= expandedRect.right &&
-                       mouseY >= expandedRect.top && mouseY <= expandedRect.bottom;
-
-      if (isInZone) {
-        const distX = mouseX - centerX;
-        const distY = mouseY - centerY;
-
-        // Calculate distance from center
-        const distance = Math.sqrt(distX * distX + distY * distY);
-
-        if (distance > 0) {
-          // Normalize and apply max offset (4px max - doubled)
-          const offsetX = (distX / distance) * MAX_OFFSET;
-          const offsetY = (distY / distance) * MAX_OFFSET;
-
-          button.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-        }
-      } else {
-        button.style.transform = "translate(0, 0)";
-      }
-    });
-  };
-
-  document.addEventListener("mousemove", handleDocumentMouseMove);
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
 }
 
-export function useMouseSticky() {
-  const ref = useRef<HTMLButtonElement>(null);
+function tick() {
+  buttons.forEach((s) => {
+    const rect = s.el.getBoundingClientRect();
+    const cx = rect.left + rect.width  / 2;
+    const cy = rect.top  + rect.height / 2;
+    const dx = mouseX - cx;
+    const dy = mouseY - cy;
 
-  // Setup global listener once
-  setupGlobalMouseListener();
+    // Circular attraction zone from button edge
+    const edgeR = Math.max(rect.width, rect.height) / 2 + s.radius;
+    const dist  = Math.sqrt(dx * dx + dy * dy);
 
-  // Register and unregister button from the set
-  const setRef = (element: HTMLButtonElement | null) => {
-    if (element) {
-      buttonElements.add(element);
-    } else if (ref.current) {
-      buttonElements.delete(ref.current);
+    if (dist < edgeR) {
+      // proximity: 1 at center, 0 at edge of zone
+      const prox = 1 - dist / edgeR;
+      s.tx     = (dx / edgeR) * MAX_OFFSET;
+      s.ty     = (dy / edgeR) * MAX_OFFSET;
+      s.tScale = 1 + (MAX_SCALE - 1) * prox;
+    } else {
+      s.tx = 0; s.ty = 0; s.tScale = 1;
     }
-    ref.current = element;
+
+    s.x     = lerp(s.x,     s.tx,     LERP);
+    s.y     = lerp(s.y,     s.ty,     LERP);
+    s.scale = lerp(s.scale, s.tScale, LERP);
+
+    s.el.style.transform =
+      `translate(${s.x.toFixed(3)}px, ${s.y.toFixed(3)}px) scale(${s.scale.toFixed(4)})`;
+  });
+
+  requestAnimationFrame(tick);
+}
+
+function startLoop() {
+  if (rafRunning) return;
+  rafRunning = true;
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+  requestAnimationFrame(tick);
+}
+
+// ─── Hook ─────────────────────────────────────────────────────────────────────
+export function useMouseSticky(radius = DEFAULT_RADIUS) {
+  const elRef = useRef<HTMLElement | null>(null);
+
+  const setRef = (element: HTMLElement | null) => {
+    if (element) {
+      buttons.set(element, { el: element, radius, x: 0, y: 0, scale: 1, tx: 0, ty: 0, tScale: 1 });
+      elRef.current = element;
+      startLoop();
+    } else if (elRef.current) {
+      buttons.delete(elRef.current);
+      elRef.current = null;
+    }
   };
 
   return { ref: setRef };

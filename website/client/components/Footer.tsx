@@ -9,7 +9,7 @@ export default function Footer() {
             Fruitpie bv
           </p>
           <p className="text-[14px] font-sans font-normal text-[#888] leading-relaxed">
-            Spanjaardsteeg 21/4
+            Meir 76
           </p>
           <p className="text-[14px] font-sans font-normal text-[#888] leading-relaxed">
             2000 Antwerpen

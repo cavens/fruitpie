@@ -34,9 +34,8 @@ export default function Header() {
             border border-fp-green-fluo
             text-black text-[12px] font-normal font-mono
             whitespace-nowrap
-            hover:bg-[#e8ffd6] hover:scale-110 transition-all
+            hover:bg-[#e8ffd6] transition-colors
           "
-          style={{ transitionDuration: "80ms" }}
         >
           Proefgesprek?
         </button>
