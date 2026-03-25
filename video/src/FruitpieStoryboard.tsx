@@ -1,5 +1,5 @@
 import React from "react";
-import { useCurrentFrame, useVideoConfig, spring, interpolate, Audio, staticFile, AbsoluteFill } from "remotion";
+import { useCurrentFrame, useVideoConfig, spring, interpolate, Audio, staticFile, AbsoluteFill, Sequence } from "remotion";
 import { loadFont } from "@remotion/google-fonts/Roboto";
 import { loadFont as loadMonoFont } from "@remotion/google-fonts/RobotoMono";
 
@@ -11,6 +11,7 @@ const { fontFamily: monoFamily } = loadMonoFont("normal", { weights: ["400"] });
 // so the exit can overlap cleanly with the triangle scaling in.
 
 const WordReveal: React.FC<{
+  frame: number;
   text: string;
   startFrame: number;
   exitFrame?: number;
@@ -18,8 +19,7 @@ const WordReveal: React.FC<{
   wordDelay?: number;
   exitWordDelay?: number;
   style?: React.CSSProperties;
-}> = ({ text, startFrame, exitFrame, exitMode = "up", wordDelay = 6, exitWordDelay = 2, style }) => {
-  const frame = useCurrentFrame();
+}> = ({ frame, text, startFrame, exitFrame, exitMode = "up", wordDelay = 6, exitWordDelay = 2, style }) => {
   const { fps } = useVideoConfig();
   const words = text.split(" ");
 
@@ -163,8 +163,14 @@ const SMOOTH  = { stiffness: 200, damping: 28 };
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 export const FruitpieStoryboard: React.FC = () => {
-  const frame = useCurrentFrame();
+  const rawFrame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const PRE_ROLL = 45; // 1.5s intro
+  const frame = rawFrame - PRE_ROLL;
+  const introOp = interpolate(rawFrame, [0, 8, 37, 45], [0, 1, 1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   const sp = (start: number, cfg = ELASTIC) =>
     spring({ frame: Math.max(0, frame - start), fps, config: cfg });
@@ -257,12 +263,12 @@ export const FruitpieStoryboard: React.FC = () => {
   const STEP4 = 579;
   const leftTriSp = sp(STEP4);
   const dotsSp    = sp(STEP4 + 4);
-  // Triangle blink: fade out 600→625, snap back at 630 (STEP5)
-  const triBlinkOp = frame >= 600 && frame < 630
+  // Triangle blink: fade out 600→625, snap back at 642 (STEP5)
+  const triBlinkOp = frame >= 600 && frame < 642
     ? interpolate(frame, [600, 625], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
     : 1;
   // Build step 5: text + left connector marching ants + file transfer (B36=630, ≈21s)
-  const STEP5 = 630;
+  const STEP5 = 642;
   const step5Op       = frame >= STEP5 ? Math.min(1, (frame - STEP5) / 15) : 0;
   // Build step 6: supervisor replaces fruitpie logo + "maar de boekhouder superviseert" (beat 42 ≈ 702)
   const STEP6 = 702;
@@ -337,12 +343,13 @@ export const FruitpieStoryboard: React.FC = () => {
 
   return (
     <>
-      <Audio src={staticFile("MA_KakaduCreation_GamesWithMoney_Main.wav")} />
+      <Sequence from={PRE_ROLL}><Audio src={staticFile("MA_KakaduCreation_GamesWithMoney_Main.wav")} /></Sequence>
       <AbsoluteFill style={{ pointerEvents: "none" }}>
         {/* ── Screen 1 text: rolls in at B0 (28), block fades out at B5 (110–130).
             Triangle starts scaling in at B6 (127) — overlapping the fade-out.
             Position matches Figma 107-99: y=255, centered, 559px wide. ── */}
         <WordReveal
+          frame={frame}
           text="Je huidige boekhouder gebruikt waarschijnlijk al AI-tools..."
           startFrame={20}
           exitMode="shrink"
@@ -361,6 +368,7 @@ export const FruitpieStoryboard: React.FC = () => {
           }}
         />
         <WordReveal
+          frame={frame}
           text="Maar gaat hij ooit de volle kracht van AI gebruiken?"
           startFrame={176}
           exitFrame={TRANS - 2}
@@ -854,6 +862,7 @@ export const FruitpieStoryboard: React.FC = () => {
       {frame >= TRANS2 && frame < COMP + 5 && (
         <AbsoluteFill style={{ pointerEvents: "none", opacity: buildExitOp }}>
           <WordReveal
+            frame={frame}
             text="Ai experts en boekhouders sloegen de handen in elkaar..."
             startFrame={385}
             exitFrame={470}
@@ -874,6 +883,7 @@ export const FruitpieStoryboard: React.FC = () => {
             }}
           />
           <WordReveal
+            frame={frame}
             text="Ai doet"
             startFrame={STEP5}
             exitFrame={702}
@@ -892,6 +902,7 @@ export const FruitpieStoryboard: React.FC = () => {
             }}
           />
           <WordReveal
+            frame={frame}
             text="het werk"
             startFrame={STEP5 + 2}
             exitFrame={702}
@@ -910,6 +921,7 @@ export const FruitpieStoryboard: React.FC = () => {
             }}
           />
           <WordReveal
+            frame={frame}
             text="maar de boekhouder superviseert"
             startFrame={STEP6}
             exitFrame={STEP7 - 5}
@@ -928,6 +940,7 @@ export const FruitpieStoryboard: React.FC = () => {
             }}
           />
           <WordReveal
+            frame={frame}
             text="Resultaat:"
             startFrame={STEP7}
             exitFrame={STEP8 - 10}
@@ -946,6 +959,7 @@ export const FruitpieStoryboard: React.FC = () => {
             }}
           />
           <WordReveal
+            frame={frame}
             text="Betere kwaliteit en 24/7 inzicht"
             startFrame={STEP7 + 8}
             exitFrame={STEP8 - 10}
@@ -964,6 +978,7 @@ export const FruitpieStoryboard: React.FC = () => {
             }}
           />
           <WordReveal
+            frame={frame}
             text="meer tijd voor persoonlijk advies"
             startFrame={STEP8}
             style={{
@@ -981,6 +996,7 @@ export const FruitpieStoryboard: React.FC = () => {
             }}
           />
           <WordReveal
+            frame={frame}
             text="...en bouwden samen een ai-native boekhoudkantoor!"
             startFrame={STEP3}
             exitFrame={562}
@@ -1007,6 +1023,7 @@ export const FruitpieStoryboard: React.FC = () => {
       {frame >= TRANS && frame < TRANS2 && (
         <AbsoluteFill style={{ pointerEvents: "none" }}>
           <WordReveal
+            frame={frame}
             text="Fruitpie doet exact dat wél!"
             startFrame={315}
             style={{
@@ -1029,6 +1046,7 @@ export const FruitpieStoryboard: React.FC = () => {
       {frame >= MONEY_START && frame < SWITCH_START + 5 && (
         <AbsoluteFill style={{ pointerEvents: "none" }}>
           <WordReveal
+            frame={frame}
             text="En niet onbelangrijk..."
             startFrame={MONEY_START}
             exitFrame={SWITCH_START}
@@ -1048,6 +1066,7 @@ export const FruitpieStoryboard: React.FC = () => {
             }}
           />
           <WordReveal
+            frame={frame}
             text="aan de helft van de prijs..."
             startFrame={MONEY_DROP}
             exitFrame={SWITCH_START}
@@ -1073,6 +1092,7 @@ export const FruitpieStoryboard: React.FC = () => {
       {frame >= SWITCH_START && frame < LINE2_START && (
         <AbsoluteFill style={{ display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
           <WordReveal
+            frame={frame}
             text="Overstappen is bovendien eenvoudig"
             startFrame={SWITCH_START + 8}
             exitFrame={SWITCH_START + 65}
@@ -1085,6 +1105,7 @@ export const FruitpieStoryboard: React.FC = () => {
       {frame >= LINE2_START && frame < LINE3_START && (
         <AbsoluteFill style={{ display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
           <WordReveal
+            frame={frame}
             text="want de overdracht is wettelijk bepaald"
             startFrame={LINE2_START + 8}
             exitFrame={LINE2_START + 65}
@@ -1097,6 +1118,7 @@ export const FruitpieStoryboard: React.FC = () => {
       {frame >= LINE3_START && frame < PROEVEN_START + 5 && (
         <AbsoluteFill style={{ display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
           <WordReveal
+            frame={frame}
             text="En wij regelen alles met je huidige boekhouder"
             startFrame={LINE3_START + 8}
             exitFrame={LINE3_START + 65}
@@ -1115,6 +1137,7 @@ export const FruitpieStoryboard: React.FC = () => {
           pointerEvents: "none",
         }}>
           <WordReveal
+            frame={frame}
             text="Proeven?"
             startFrame={PROEVEN_START}
             exitFrame={FINAL_START - 15}
@@ -1135,6 +1158,7 @@ export const FruitpieStoryboard: React.FC = () => {
       {frame >= FINAL_START && (
         <AbsoluteFill style={{ pointerEvents: "none" }}>
           <WordReveal
+            frame={frame}
             text="Boek dan een online proefgesprek op fruitpie.ai"
             startFrame={FINAL_START + 25}
             exitWordDelay={6}
@@ -1152,6 +1176,16 @@ export const FruitpieStoryboard: React.FC = () => {
               justifyContent: "center",
             }}
           />
+        </AbsoluteFill>
+      )}
+
+      {/* ── 1.5s intro: Fruitpie icon fades in/out on white, renders on top ── */}
+      {rawFrame < PRE_ROLL && (
+        <AbsoluteFill style={{ backgroundColor: "#FBFFF7", display: "flex", alignItems: "center", justifyContent: "center", opacity: introOp }}>
+          <svg width="50" height="51" viewBox="0 0 50 51" fill="none">
+            <path d="M24.6309 0.0105997C26.6291 -0.0891336 27.561 0.520014 29.0969 1.62329C32.8828 0.60531 34.7484 1.45789 37.0415 4.51771C40.9705 4.58673 42.2693 6.62383 43.4874 9.91707C46.7275 11.5328 47.8781 13.3103 47.5832 16.9728C50.3854 19.8067 50.3727 21.6667 49.1562 25.2459C50.6623 28.6772 50.1476 30.5931 47.6494 33.2736C48.3828 37.232 46.4556 38.7031 43.4905 40.4776C42.9515 41.5886 42.7348 42.6129 41.956 43.6271C40.6602 45.3151 38.9428 45.6421 36.9762 45.9144C34.9881 48.8116 32.7464 49.9593 29.2205 48.8551C27.8638 49.7957 27.3298 50.0824 25.7256 50.4414C23.6034 50.6161 22.3395 50.133 20.7082 48.84C17.0187 49.831 15.0667 48.8454 12.8279 45.9357C8.89486 45.0744 7.77973 44.6287 6.4998 40.5728C2.80715 38.4522 2.31097 37.626 2.32068 33.4106C-0.40081 30.7369 -0.352222 28.5332 0.89836 25.1456C-0.71177 21.4767 -0.111667 20.0024 2.3308 17.0719C2.27328 13.1123 2.92931 11.8588 6.45439 9.96328C7.60105 6.1568 8.91252 5.07835 12.8394 4.48479C13.1041 4.23551 13.3493 3.89183 13.5712 3.59772C15.4026 1.17027 17.8653 0.871847 20.678 1.57946C22.1061 0.633451 22.9321 0.220299 24.6309 0.0105997ZM21.0489 3.71731C19.7723 3.36708 17.5315 2.71284 16.3016 3.43808C15.3877 3.9769 15.2432 5.40736 14.0906 6.0382C12.4213 6.95204 11.3334 6.23335 9.76745 7.5347C8.4669 8.61512 8.85421 10.0573 8.2545 10.9088C7.22762 12.3669 4.75977 12.252 4.3566 14.7252C4.17355 15.8481 4.20965 16.7066 4.47678 17.8352C1.71285 20.4368 1.03341 21.845 3.28133 25.2094C0.865041 28.91 1.91037 29.8482 4.48035 32.7395C4.24971 33.9474 3.90107 35.6694 4.67331 36.75C5.48561 37.8864 7.0176 38.0714 7.95743 39.2371C8.81296 40.2981 8.6319 41.9063 9.54753 42.7489C10.5817 43.7008 12.9058 43.5929 13.9605 44.2692C15.2908 45.1222 15.5281 46.982 17.4851 47.2342C18.6048 47.3784 19.857 46.9633 20.9541 46.6661C22.9561 47.6114 22.9912 48.6016 25.5854 48.5788C27.4113 47.8928 27.5293 47.2892 28.7931 46.6835C30.2682 47.1331 31.8432 47.7001 33.3258 46.9104C34.4457 46.3138 34.9733 45.1894 35.6965 44.2434C37.5912 43.7334 39.4725 44.1026 40.7272 42.1756C41.3507 41.3226 41.3049 40.0534 41.9078 39.226C42.5503 38.3441 44.1172 37.9846 44.876 37.3583C45.8886 36.5226 45.7938 33.8384 45.7315 32.6675C46.6463 30.9529 48.7661 29.9754 48.0276 27.6243C47.7077 26.606 47.3547 26.0134 46.7865 25.1059C48.8919 21.5011 48.2412 20.7781 45.6258 17.882C45.8164 15.0414 46.029 13.204 43.2264 12.2372C42.1747 11.8742 41.4302 10.7042 41.2934 9.71261C40.591 6.7565 38.5076 6.69919 35.9968 6.32596C33.2336 2.97957 32.8935 2.71462 28.5321 3.73297C27.0501 2.57758 26.1585 1.84421 24.1462 2.05185C22.6086 2.51036 22.2887 3.07119 21.0489 3.71731Z" fill="black"/>
+            <path d="M24.5935 4.89842C35.7919 4.67631 45.0576 13.5593 45.3079 24.757C45.5581 35.9547 36.6984 45.2429 25.5012 45.5211C14.2642 45.8004 4.93603 36.9023 4.68496 25.6647C4.43389 14.4271 13.3553 5.12133 24.5935 4.89842ZM12.851 39.0136C14.4181 40.3203 15.681 41.015 17.4565 41.975C17.8738 42.0278 17.9136 42.0403 18.3053 41.7216C19.9775 40.3603 21.6644 38.2814 23.3025 36.9374C22.8136 36.4176 19.4909 32.9132 19.1264 32.75C17.3451 34.438 15.6955 36.2609 13.9211 37.9575C13.5689 38.2943 13.1786 38.6566 12.851 39.0136ZM26.6616 36.8365C27.7041 37.784 31.2978 41.5262 32.0814 41.973C32.4429 41.954 32.5363 41.8842 32.8582 41.7307C34.3594 40.9545 35.7833 40.1142 37.0307 38.9576C35.5695 37.4433 32.3604 33.9708 30.7796 32.7626C29.42 34.1338 28.0472 35.4917 26.6616 36.8365ZM19.0827 20.9682C17.7306 22.2963 16.3904 23.6365 15.0619 24.9883C15.8149 25.8154 18.3989 28.7362 19.2642 29.1989C20.6123 27.8507 21.9184 26.4651 23.2684 25.1172C22.7288 24.5242 19.619 21.3019 19.0827 20.9682ZM38.4247 25.1205C39.3461 26.0092 40.2556 26.9103 41.1527 27.8238C41.615 28.2958 42.4626 29.2114 42.9449 29.5965C43.2093 27.5231 43.6819 22.7495 42.8144 20.917L42.7192 20.8641C41.3284 22.2604 39.7691 23.7264 38.4247 25.1205ZM26.7072 25.1562C27.3253 25.7272 30.5387 29.1771 30.9738 29.1674C32.3289 27.8626 33.6526 26.5258 34.9444 25.1582C34.4736 24.6458 31.1102 21.181 30.7366 21.0499C29.4757 22.2798 27.8259 23.8346 26.7072 25.1562ZM13.2203 26.8084C11.4376 28.6486 9.79755 30.3384 7.95024 32.112C8.95431 34.1419 9.64525 35.2741 11.0497 37.1159L11.8004 36.4785L17.3699 30.9161C16.503 30.0255 14.0939 27.4418 13.2203 26.8084ZM25.0655 35.1216C26.1509 34.0184 28.1791 32.0915 29.0808 30.9728C28.1577 30.0354 25.8626 27.6088 24.9249 26.9038C23.6113 28.2496 22.2826 29.5801 20.9386 30.8955C21.4669 31.4643 24.563 34.8844 25.0655 35.1216ZM20.838 19.29C22.1915 20.5775 23.6704 22.1686 25.0667 23.3291C26.0759 22.2832 28.1579 20.2703 29.0166 19.2412C28.3679 18.4222 25.737 15.639 24.9414 15.1944C23.5415 16.5255 22.2344 17.9433 20.838 19.29ZM7.17839 20.8319C6.54933 24.0689 6.31076 26.4056 7.21429 29.6881C7.82986 28.9722 8.45971 28.2688 9.10305 27.5779C9.92983 26.756 10.76 25.888 11.658 25.1501C10.3505 23.8993 8.48966 21.9376 7.17839 20.8319ZM17.3921 19.364C16.8247 18.7603 11.5618 13.5133 11.0953 13.3209C9.99686 14.5935 8.62055 16.6435 7.92366 18.1836C9.54034 19.6561 11.7052 21.8955 13.211 23.5039L13.8087 22.9779C15.0111 21.6062 16.177 20.6348 17.3921 19.364ZM24.465 6.85283C23.2265 6.9976 21.8108 7.2338 20.6167 7.3512C21.1379 7.86226 24.6792 11.5968 25.0052 11.6358L25.1861 11.4992C26.2489 10.4307 28.2546 8.53296 29.175 7.44976C27.4534 7.01922 26.23 6.82546 24.465 6.85283ZM38.5508 36.8926L38.7823 36.9967C39.8117 36.6024 41.3195 33.7035 41.757 32.7329C41.8568 32.5102 41.9524 32.2855 42.0438 32.0592C41.2812 31.3094 37.256 27.2352 36.5946 27.0059C35.2715 28.2141 33.9112 29.6175 32.6327 30.889C34.4344 32.7333 36.9145 35.0463 38.5508 36.8926ZM24.9803 38.5432C24.2425 39.2274 23.5793 40.0192 22.8769 40.7433C22.1396 41.5034 21.3778 42.2247 20.6419 42.9864C22.1525 43.299 23.7269 43.5382 25.2747 43.4904C26.7885 43.4229 27.9072 43.2998 29.4148 43.0477C28.6303 42.2358 25.6553 39.0558 24.9803 38.5432ZM31.7781 8.2575C30.2348 9.87735 28.0073 11.853 26.6469 13.4036L30.8211 17.5881L31.4485 16.9622C33.3042 14.986 34.8826 13.266 36.9441 11.4942C35.7907 10.46 33.3091 8.61586 31.7781 8.2575ZM38.7345 13.2348C37.1353 14.743 33.9812 17.7368 32.5664 19.3487C33.7966 20.5612 35.0202 21.7805 36.2371 23.0063C36.5847 23.2579 36.4039 23.2173 36.7795 23.199C37.9025 22.5765 40.7724 19.363 41.8209 18.2465C41.2949 17.0481 39.7881 14.0162 38.7345 13.2348ZM17.687 8.28011C16.031 9.19931 14.3269 10.1956 12.8572 11.3911C14.8826 13.3673 16.8965 15.355 18.8989 17.3545L19.0948 17.4036C19.7812 16.961 22.6516 14.1973 23.2265 13.5046C22.6272 12.7264 18.3581 8.36083 17.687 8.28011Z" fill="black"/>
+          </svg>
         </AbsoluteFill>
       )}
     </>

@@ -11,8 +11,13 @@ export default function VideoSection() {
   const [open, setOpen] = useState(false);
   const { ref: playBtnRef } = useMouseSticky(50);
 
+  const openVideo = () => {
+    setOpen(true);
+    (window as any).gtag?.('event', 'video_play', { video_title: 'fruitpie_explainer' });
+  };
+
   useEffect(() => {
-    const handler = () => setOpen(true);
+    const handler = () => openVideo();
     window.addEventListener('play-video', handler);
     return () => window.removeEventListener('play-video', handler);
   }, []);
@@ -50,14 +55,14 @@ export default function VideoSection() {
           {/* Invisible full-area click target */}
           <div
             className="absolute inset-0 cursor-pointer"
-            onClick={() => setOpen(true)}
+            onClick={() => openVideo()}
           />
 
           {/* Play button — flex-centered wrapper so magnetic transform doesn't break centering */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <button
               ref={playBtnRef as any}
-              onClick={() => setOpen(true)}
+              onClick={() => openVideo()}
               className="group pointer-events-auto"
               aria-label="Play video"
             >
