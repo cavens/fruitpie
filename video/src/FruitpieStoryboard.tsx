@@ -14,10 +14,11 @@ const WordReveal: React.FC<{
   text: string;
   startFrame: number;
   exitFrame?: number;
-  exitMode?: "drop" | "shrink";
+  exitMode?: "up" | "shrink";
   wordDelay?: number;
+  exitWordDelay?: number;
   style?: React.CSSProperties;
-}> = ({ text, startFrame, exitFrame, exitMode = "drop", wordDelay = 6, style }) => {
+}> = ({ text, startFrame, exitFrame, exitMode = "up", wordDelay = 6, exitWordDelay = 2, style }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const words = text.split(" ");
@@ -33,20 +34,18 @@ const WordReveal: React.FC<{
         let ty = interpolate(inSp, [0, 1], [16, 0]);
         let scale = 1;
 
-        if (exitFrame != null && frame >= exitFrame + i * 2) {
-          const exitLocal = frame - (exitFrame + i * 2);
+        if (exitFrame != null && frame >= exitFrame + i * exitWordDelay) {
+          const exitLocal = frame - (exitFrame + i * exitWordDelay);
           const t = Math.min(1, exitLocal / 12);
           if (exitMode === "shrink") {
-            // Shrink into center — looks like triangle grows from same spot
             const t2 = t * t;
             scale = Math.max(0, 1 - t2 * 2);
             opacity = Math.max(0, 1 - t * 2);
             ty = 0;
           } else {
-            // Drop with gravity
-            const t2 = t * t;
+            // Slide up + fade — mirrors the entrance
             opacity = Math.max(0, 1 - t * 2);
-            ty = t2 * 220;
+            ty = -(t * t * 16);
           }
         }
 
@@ -112,11 +111,7 @@ const WM2_P   = "M414.547 286.726V342.873H402.012V277.673H413.633L414.547 286.72
 const WM2_I2  = "M465.379 277.672V324.765H452.801V277.672H465.379ZM452.017 265.398C452.017 263.57 452.655 262.062 453.932 260.872C455.209 259.682 456.921 259.087 459.068 259.087C461.186 259.087 462.884 259.682 464.16 260.872C465.466 262.062 466.119 263.57 466.119 265.398C466.119 267.226 465.466 268.735 464.16 269.925C462.884 271.115 461.186 271.709 459.068 271.709C456.921 271.709 455.209 271.115 453.932 269.925C452.655 268.735 452.017 267.226 452.017 265.398Z";
 const WM2_E   = "M497.413 325.637C493.757 325.637 490.478 325.057 487.576 323.896C484.675 322.706 482.208 321.067 480.177 318.978C478.175 316.889 476.637 314.466 475.564 311.709C474.49 308.924 473.953 305.964 473.953 302.83V301.089C473.953 297.52 474.461 294.256 475.476 291.297C476.492 288.337 477.943 285.769 479.829 283.593C481.744 281.417 484.065 279.748 486.793 278.587C489.52 277.398 492.596 276.803 496.02 276.803C499.357 276.803 502.316 277.354 504.899 278.457C507.481 279.56 509.643 281.126 511.384 283.158C513.154 285.189 514.489 287.626 515.388 290.47C516.288 293.284 516.737 296.418 516.737 299.871V305.094H479.307V296.737H504.42V295.78C504.42 294.039 504.101 292.486 503.463 291.122C502.853 289.73 501.925 288.627 500.677 287.815C499.429 287.002 497.833 286.596 495.889 286.596C494.235 286.596 492.814 286.959 491.624 287.684C490.434 288.409 489.462 289.425 488.708 290.731C487.982 292.036 487.431 293.574 487.054 295.344C486.706 297.085 486.532 299 486.532 301.089V302.83C486.532 304.716 486.793 306.457 487.315 308.053C487.866 309.649 488.635 311.027 489.622 312.188C490.637 313.349 491.856 314.248 493.278 314.887C494.729 315.525 496.368 315.844 498.196 315.844C500.459 315.844 502.563 315.409 504.507 314.538C506.48 313.639 508.178 312.29 509.599 310.491L515.693 317.106C514.706 318.528 513.357 319.892 511.645 321.198C509.962 322.503 507.931 323.577 505.552 324.418C503.172 325.231 500.459 325.637 497.413 325.637Z";
 
-const BOOKING_ICON = "M362.396 198.287C360.312 198.287 358.559 197.576 357.135 196.152C355.712 194.729 355 192.975 355 190.891V127.279C355 125.196 355.712 123.442 357.135 122.018C358.559 120.595 360.323 119.883 362.427 119.883H373.083V108H376.894V119.883H412.027V108H415.321V119.883H425.977C428.082 119.883 429.846 120.595 431.269 122.018C432.692 123.442 433.404 125.206 433.404 127.31V153.015H430.11V147.912H358.294V190.86C358.294 191.894 358.724 192.841 359.585 193.702C360.447 194.563 361.394 194.994 362.427 194.994H393.169V198.287H362.396ZM358.294 144.619H430.11V127.31C430.11 126.277 429.68 125.33 428.819 124.469C427.958 123.608 427.01 123.177 425.977 123.177H362.427C361.394 123.177 360.447 123.608 359.585 124.469C358.724 125.33 358.294 126.277 358.294 127.31V144.619ZM405.763 198.287V188.406L432.95 161.348C433.339 160.959 433.752 160.7 434.191 160.571C434.629 160.442 435.046 160.377 435.441 160.377C435.833 160.377 436.259 160.463 436.719 160.635C437.178 160.808 437.581 161.044 437.925 161.346L442.704 166.254C442.985 166.678 443.217 167.096 443.399 167.508C443.582 167.921 443.673 168.332 443.673 168.741C443.673 169.15 443.592 169.56 443.43 169.972C443.268 170.383 443.025 170.781 442.702 171.165L415.644 198.287H405.763ZM409.25 194.8H414.127L432.888 176.071L430.448 173.617L428.138 171.033L409.25 189.892V194.8ZM430.433 173.617L428.108 171.033L432.888 176.071L430.433 173.617Z";
 
-// Circle-checkmark icon (96×96 viewBox, node 1-274)
-const CHECKMARK =
-  "M39.9534 68.3615L74.1691 34.1458L71.5802 31.5569L39.9534 63.1837L24.1399 47.3703L21.551 49.9592L39.9534 68.3615ZM48.0336 96C41.3957 96 35.151 94.7396 29.2996 92.2188C23.4482 89.697 18.358 86.2755 14.0292 81.9541C9.70029 77.6317 6.28012 72.5551 3.76863 66.7242C1.25621 60.8933 0 54.6631 0 48.0336C0 41.3957 1.26041 35.151 3.78123 29.2996C6.30297 23.4482 9.72455 18.358 14.0459 14.0292C18.3683 9.70029 23.4449 6.28012 29.2758 3.76863C35.1067 1.25621 41.3369 0 47.9664 0C54.6043 0 60.849 1.26041 66.7004 3.78123C72.5518 6.30298 77.642 9.72455 81.9708 14.0459C86.2997 18.3683 89.7199 23.4449 92.2314 29.2758C94.7438 35.1067 96 41.3369 96 47.9664C96 54.6043 94.7396 60.849 92.2188 66.7004C89.697 72.5518 86.2755 77.642 81.9541 81.9708C77.6317 86.2997 72.5551 89.7199 66.7242 92.2314C60.8933 94.7438 54.6631 96 48.0336 96ZM47.9958 92.4315C60.3601 92.4315 70.8571 88.118 79.4869 79.4911C88.1166 70.8651 92.4315 60.3694 92.4315 48.0042C92.4315 35.6399 88.118 25.1429 79.4911 16.5131C70.8651 7.88338 60.3694 3.56851 48.0042 3.56851C35.6399 3.56851 25.1429 7.88198 16.5131 16.5089C7.88338 25.1349 3.56851 35.6306 3.56851 47.9958C3.56851 60.3601 7.88198 70.8571 16.5089 79.4869C25.1349 88.1166 35.6306 92.4315 47.9958 92.4315Z";
 
 // ─── LAYOUT CONSTANTS ─────────────────────────────────────────────────────────
 
@@ -244,7 +239,7 @@ export const FruitpieStoryboard: React.FC = () => {
   // ── Build-up: hard cut from Fruitpie logo, AI triangle pops in on same beat ──
   const TRANS2 = 375; // B21 ≈ 12.5s
   // ── Full composition: appears after build-up ──
-  const COMP = 990; // ≈33s
+  const COMP = 900; // 30s
 
   // Build step 1: AI triangle springs in immediately on the cut
   const aiTriSp = sp(375);
@@ -262,6 +257,10 @@ export const FruitpieStoryboard: React.FC = () => {
   const STEP4 = 579;
   const leftTriSp = sp(STEP4);
   const dotsSp    = sp(STEP4 + 4);
+  // Triangle blink: fade out 600→625, snap back at 630 (STEP5)
+  const triBlinkOp = frame >= 600 && frame < 630
+    ? interpolate(frame, [600, 625], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
+    : 1;
   // Build step 5: text + left connector marching ants + file transfer (B36=630, ≈21s)
   const STEP5 = 630;
   const step5Op       = frame >= STEP5 ? Math.min(1, (frame - STEP5) / 15) : 0;
@@ -273,8 +272,8 @@ export const FruitpieStoryboard: React.FC = () => {
   const marchOffset6  = frame >= STEP6 ? ((frame - STEP6) * 0.5) % 4 : 0;
   // Build step 7: text changes to "Resultaat" (≈25.2s)
   const STEP7 = 769;
-  // Build step 8: B-drop ~30s — Fruitpie logo returns, bottom icons + marching ants
-  const STEP8 = 900;
+  // Build step 8: telephone icons + "meer tijd" (beat 50 ≈ 27.9s)
+  const STEP8 = 836;
   const step8Sp      = sp(STEP8);
   const step8Op      = frame >= STEP8 ? Math.min(1, (frame - STEP8) / 15) : 0;
   const wiggle8      = frame >= STEP8 ? Math.sin((frame - STEP8) * 0.35) * 12 : 0;
@@ -285,44 +284,30 @@ export const FruitpieStoryboard: React.FC = () => {
   const iconDrift5    = frame >= STEP5 ? Math.max(0, frame - STEP5) * 2.5 : 0; // fast speed, same as Screen 2
   const wrappedDrift5 = iconDrift5 % ICON_SPAN5;
   const marchOffset5  = frame >= STEP5 ? ((frame - STEP5) * 0.5) % 4 : 0;
-  // ── Money scene: hard cut at COMP, grid in immediately, drop after MONEY_DROP ──
+  // ── Money scene: grid appears at COMP, falls after a short delay ──
   const MONEY_START = COMP;
-  const MONEY_DROP  = COMP + 67;  // ~35.2s, 4 beats after 33s cut
+  const MONEY_DROP  = 936;  // beat 56 ≈ 31.2s
   // Tiny 3-frame flash just to punctuate the cut — not white, same bg color
   const flash2Opacity = interpolate(frame, [COMP - 1, COMP, COMP + 3], [0, 1, 0], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp",
   });
   // Parabolic gravity fall per icon (dropY computed per-icon in render loop)
   const dropElapsed = frame >= MONEY_DROP ? frame - MONEY_DROP : 0;
-  const dropOpacity = frame >= MONEY_DROP ? Math.max(0, 1 - dropElapsed / 22) : 1;
   // ── Switch scene: "Overstappen is bovendien eenvoudig" ──
-  const SWITCH_START = 1120;  // ~37.3s, on the beat
-  const moneyExitOp = interpolate(frame, [SWITCH_START - 20, SWITCH_START], [1, 0], {
+  const SWITCH_START = 990;  // ≈ 33s — instant cut from money scene
+  const moneyExitOp = interpolate(frame, [SWITCH_START, SWITCH_START + 3], [1, 0], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp",
   });
-  const flash3Opacity = interpolate(frame, [SWITCH_START - 1, SWITCH_START, SWITCH_START + 3], [0, 1, 0], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp",
-  });
-  // Order: 1) connector (lower), 2) arrow, 3) diagram (upper)
-  const swConnLSp = sp(SWITCH_START,      SMOOTH);
-  const swConnRSp = sp(SWITCH_START + 5,  SMOOTH);
-  const swLineOp  = frame >= SWITCH_START ? Math.min(1, (frame - SWITCH_START) / 8) : 0;
-  const swArrowSp = sp(SWITCH_START + 18, SMOOTH);
-  const swDiagSp  = sp(SWITCH_START + 35, SMOOTH);
-  // ── Legal scene: checkmark icon replaces arrow ──
-  const LEGAL_START   = 1260;
-  const switchExitOp  = interpolate(frame, [LEGAL_START - 20, LEGAL_START], [1, 0], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp",
-  });
-  const swCheckSp = sp(LEGAL_START, ELASTIC);
+  // ── Sequential text lines after money scene (~90 frames each) ──
+  const LINE2_START = SWITCH_START + 90;   // ≈ 1080
+  const LINE3_START = SWITCH_START + 180;  // ≈ 1170
   // ── Proeven scene ──
-  const PROEVEN_START = 1350;
+  const PROEVEN_START = 1260;
   // ── Final CTA scene ──
-  const FINAL_START = 1395;
+  const FINAL_START = 1320;
   const flash5Opacity = interpolate(frame, [FINAL_START - 1, FINAL_START, FINAL_START + 3], [0, 1, 0], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp",
   });
-  const finalIconSp = sp(FINAL_START + 15, ELASTIC);
   const WM2_LETTERS = [WM2_F, WM2_R, WM2_U, WM2_I1, WM2_T, WM2_P, WM2_I2, WM2_E];
   // Exit: zoom toward camera (scale 1→2) while fading 1→0 — finishes exactly at COMP
   // Exit: spring-eased shrink, starts ~1 beat before the cut (SMOOTH = same ease as everything else)
@@ -619,13 +604,13 @@ export const FruitpieStoryboard: React.FC = () => {
         <g style={{ transformOrigin: "400px 300px", transform: `scale(${buildExitScale})`, opacity: buildExitOp }}>
         <g style={{ transform: "translate(400px, 300px) scale(0.7) translate(-396px, -280px)" }}>
           {/* Step 1: AI triangle */}
-          <g style={{ transformOrigin: "400px 120px", transform: `scale(${aiTriSp})` }}>
+          <g style={{ transformOrigin: "400px 120px", transform: `scale(${aiTriSp})`, opacity: triBlinkOp }}>
             <path d="M403.764 192.294C402.03 195.283 397.713 195.283 395.979 192.294L314.16 51.2578C312.42 48.2579 314.584 44.5003 318.052 44.5L481.69 44.5C485.158 44.5003 487.322 48.258 485.582 51.2578L403.764 192.294Z" fill="#F3FFE8" stroke="#61FD7D"/>
             <text x="400" y="68" textAnchor="middle" dominantBaseline="middle" fill="black"
               style={{ fontFamily: monoFamily, fontSize: 18, fontWeight: 400 }}>Ai</text>
           </g>
           {/* Step 2: Boekhouder triangle */}
-          <g style={{ transformOrigin: "587px 442px", transform: `scale(${boekSp})` }}>
+          <g style={{ transformOrigin: "587px 442px", transform: `scale(${boekSp})`, opacity: triBlinkOp }}>
             <path fillRule="evenodd" clipRule="evenodd" d="M670.7 368.15C674.557 368.144 676.968 372.322 675.034 375.658L593.227 516.776C591.299 520.103 586.494 520.098 584.571 516.769L503.263 375.938C501.34 372.609 503.739 368.445 507.584 368.438L670.7 368.15Z" fill="black"/>
             <text x="558" y="436" textAnchor="middle" dominantBaseline="middle" fill="white"
               transform="rotate(60, 558, 436)"
@@ -657,7 +642,7 @@ export const FruitpieStoryboard: React.FC = () => {
           )}
           {/* Step 4: Left (Bedrijf) triangle */}
           {frame >= STEP4 && (
-            <g style={{ transformOrigin: "207px 442px", transform: `scale(${leftTriSp})` }}>
+            <g style={{ transformOrigin: "207px 442px", transform: `scale(${leftTriSp})`, opacity: triBlinkOp }}>
               <path fillRule="evenodd" clipRule="evenodd" d="M290.903 368.15C294.76 368.144 297.171 372.322 295.237 375.658L213.431 516.776C211.502 520.103 206.697 520.098 204.774 516.769L123.466 375.938C121.543 372.609 123.942 368.445 127.787 368.438L290.903 368.15Z" fill="black"/>
               <text x="238" y="436" textAnchor="middle" dominantBaseline="middle" fill="white"
                 transform="rotate(-60, 238, 436)"
@@ -801,19 +786,38 @@ export const FruitpieStoryboard: React.FC = () => {
       {/* ── Money scene: 4×4 euro icon grid (2/3 scale, centered at 401,280) ── */}
       {frame >= MONEY_START && frame < SWITCH_START + 5 && (
         <>
+          {/* Ghost layer — static copies of the right 8 icons at 30% opacity, shown after drop starts */}
+          {frame >= MONEY_DROP && (
+            <g style={{ transformOrigin: "401px 280px", transform: "translate(-1px, 20px) scale(0.667)", opacity: moneyExitOp * 0.2 }}>
+              {Array.from({ length: 16 }, (_, idx) => {
+                const col = idx % 4;
+                const row = Math.floor(idx / 4);
+                if (col < 2) return null;
+                const colSp = sp(MONEY_START + col * 4);
+                return (
+                  <g key={`euro-ghost-${idx}`}
+                     style={{ transform: `translate(${col * 73}px, ${row * 57}px)` }}>
+                    <path d={EURO} fill="black"
+                      style={{ transformOrigin: "291.5px 194px", transform: `scale(${colSp})` }}/>
+                  </g>
+                );
+              })}
+            </g>
+          )}
           <g style={{ transformOrigin: "401px 280px", transform: "translate(-1px, 20px) scale(0.667)", opacity: moneyExitOp }}>
             {Array.from({ length: 16 }, (_, idx) => {
               const col = idx % 4;
               const row = Math.floor(idx / 4);
               const colSp = sp(MONEY_START + col * 4);
               const isRight = col >= 2;
-              // Per-icon physics: unique gravity/drift/spin per position
-              const grav = isRight ? 0.55 + row * 0.06 + (col - 2) * 0.04 : 0;
-              const driftDir = col === 2 ? -1 : 1;
-              const iconDropY = isRight ? dropElapsed * dropElapsed * grav : 0;
-              const iconDropX = isRight ? driftDir * dropElapsed * dropElapsed * 0.09 : 0;
-              const iconRot   = isRight ? driftDir * dropElapsed * 3.5 : 0;
-              const iconOpacity = isRight ? dropOpacity : 1;
+              // Jump-then-fall physics: upward pop then gravity pulls down
+              const vy0  = -(5 + row * 0.3 + (col - 2) * 0.2);   // initial upward velocity
+              const grav =   0.30 + row * 0.02 + (col - 2) * 0.015; // per-icon gravity
+              const vx0  = (col === 2 ? -1 : 1) * (0.9 + row * 0.25); // radial explosion kick
+              const iconDropY = isRight ? vy0 * dropElapsed + grav * dropElapsed * dropElapsed : 0;
+              const iconDropX = isRight ? vx0 * dropElapsed : 0;
+              const iconRot   = isRight ? (col === 2 ? -1 : 1) * dropElapsed * 2.5 : 0;
+              const iconOpacity = 1;
               return (
                 <g key={`euro-${idx}`}
                    style={{ transform: `translate(${col * 73 + iconDropX}px, ${row * 57 + iconDropY}px)` }}>
@@ -827,90 +831,12 @@ export const FruitpieStoryboard: React.FC = () => {
         </>
       )}
 
-      {/* ── Switch scene: composition diagram + connector + arrow ── */}
-      {frame >= SWITCH_START && frame < PROEVEN_START && (
-        <>
-          {/* Fruitpie composition diagram — springs in as one unit */}
-          <g style={{ transformOrigin: "397px 163px", transform: `scale(${swDiagSp})`, opacity: swDiagSp }}>
-            <path d="M432.876 63.0106L361.047 63.2701C357.195 63.284 354.805 67.4661 356.748 70.7925L469.861 264.383C471.782 267.671 476.526 267.69 478.474 264.419L515.139 202.834C516.073 201.265 516.078 199.311 515.15 197.738L437.201 65.4719C436.299 63.9412 434.652 63.0042 432.876 63.0106Z" stroke="black" strokeDasharray="2 2"/>
-            <rect x="400.743" y="135.499" width="69.3214" height="10.4107" transform="rotate(60 400.743 135.499)" fill="#FBFFF7"/>
-            <path d="M400.339 123.609C398.608 126.617 394.269 126.617 392.538 123.609L363.461 73.0644C361.735 70.0646 363.901 66.3205 367.361 66.3203L425.516 66.3203C428.977 66.3204 431.142 70.0645 429.416 73.0645L400.339 123.609Z" fill="#F3FFE8" stroke="#61FD7D"/>
-            <ellipse cx="396.791" cy="138.091" rx="3.52538" ry="3.17284" fill="black"/>
-            <path d="M368.204 198.534H423.939" stroke="black"/>
-            <path d="M364.949 192.515L392.816 144.247" stroke="black"/>
-            <path d="M427.557 192.515L399.689 144.247" stroke="black"/>
-            <circle cx="358.365" cy="198.728" r="3.17284" fill="black"/>
-            <ellipse cx="430.987" cy="198.728" rx="3.87792" ry="3.17284" fill="black"/>
-            <path fillRule="evenodd" clipRule="evenodd" d="M345.806 200.949C349.662 200.942 352.075 205.12 350.141 208.457L321.148 258.469C319.22 261.795 314.415 261.791 312.492 258.461L283.677 208.552C281.754 205.222 284.153 201.059 287.998 201.052L345.806 200.949Z" fill="black"/>
-            <path fillRule="evenodd" clipRule="evenodd" d="M503.958 200.949C507.814 200.943 510.226 205.12 508.292 208.457L479.299 258.469C477.371 261.795 472.567 261.791 470.644 258.461L441.829 208.552C439.906 205.222 442.305 201.059 446.15 201.052L503.958 200.949Z" fill="black"/>
-            {/* Fruitpie logo icon (top-right corner of diagram) */}
-            <path d="M452.149 168.453C451.856 167.947 451.674 167.446 451.603 166.951C451.536 166.454 451.566 165.982 451.693 165.533C451.822 165.089 452.035 164.682 452.331 164.313C452.631 163.941 452.998 163.63 453.432 163.38L453.673 163.24C454.167 162.955 454.66 162.764 455.151 162.668C455.642 162.572 456.114 162.568 456.566 162.655C457.021 162.746 457.438 162.934 457.817 163.219C458.2 163.502 458.528 163.881 458.802 164.355C459.069 164.817 459.229 165.271 459.283 165.717C459.337 166.163 459.293 166.588 459.15 166.991C459.011 167.399 458.78 167.779 458.458 168.131C458.14 168.48 457.742 168.793 457.263 169.07L456.54 169.487L453.546 164.302L454.704 163.634L456.712 167.113L456.845 167.036C457.086 166.897 457.276 166.728 457.414 166.531C457.558 166.335 457.636 166.118 457.649 165.881C457.662 165.643 457.59 165.389 457.435 165.12C457.303 164.891 457.139 164.723 456.943 164.616C456.747 164.509 456.529 164.456 456.288 164.456C456.049 164.46 455.792 164.506 455.516 164.596C455.247 164.687 454.968 164.816 454.679 164.983L454.438 165.122C454.176 165.273 453.956 165.448 453.777 165.648C453.6 165.852 453.47 166.069 453.389 166.299C453.309 166.532 453.282 166.773 453.307 167.021C453.335 167.273 453.422 167.525 453.568 167.779C453.749 168.092 453.977 168.349 454.253 168.548C454.536 168.75 454.859 168.877 455.221 168.93L454.792 170.303C454.517 170.28 454.22 170.202 453.902 170.07C453.586 169.941 453.275 169.746 452.968 169.483C452.666 169.219 452.392 168.875 452.149 168.453Z" fill="black"/>
-            <path d="M456.234 160.18L449.71 163.946L448.704 162.204L455.228 158.437L456.234 160.18ZM456.865 157.347C457.118 157.201 457.379 157.169 457.645 157.251C457.912 157.332 458.132 157.522 458.303 157.819C458.473 158.113 458.526 158.395 458.463 158.667C458.403 158.943 458.246 159.154 457.993 159.301C457.74 159.447 457.479 159.477 457.209 159.391C456.942 159.31 456.724 159.122 456.555 158.829C456.383 158.531 456.329 158.247 456.391 157.975C456.454 157.703 456.612 157.493 456.865 157.347Z" fill="black"/>
-            <path d="M450.911 153.863L443.134 158.354L442.132 156.617L451.163 151.403L452.092 153.013L450.911 153.863ZM451.361 159.111L451.234 159.184C450.76 159.457 450.287 159.655 449.816 159.777C449.347 159.903 448.901 159.946 448.477 159.907C448.056 159.866 447.67 159.735 447.318 159.515C446.972 159.297 446.681 158.983 446.444 158.573C446.214 158.175 446.095 157.783 446.086 157.397C446.078 157.01 446.16 156.633 446.333 156.265C446.513 155.899 446.761 155.544 447.077 155.201C447.394 154.857 447.754 154.526 448.159 154.206L448.491 154.015C449.002 153.805 449.49 153.647 449.953 153.54C450.421 153.431 450.856 153.391 451.259 153.421C451.669 153.453 452.037 153.567 452.365 153.764C452.695 153.964 452.974 154.261 453.202 154.655C453.441 155.069 453.572 155.478 453.596 155.882C453.623 156.29 453.551 156.686 453.381 157.068C453.213 157.454 452.957 157.819 452.614 158.162C452.273 158.509 451.855 158.825 451.361 159.111ZM450.228 157.441L450.355 157.368C450.632 157.208 450.873 157.037 451.078 156.854C451.29 156.673 451.455 156.481 451.574 156.278C451.695 156.08 451.758 155.872 451.761 155.656C451.771 155.441 451.711 155.221 451.581 154.996C451.444 154.759 451.289 154.578 451.115 154.453C450.944 154.332 450.756 154.261 450.55 154.24C450.345 154.22 450.127 154.241 449.896 154.305C449.665 154.368 449.419 154.467 449.159 154.602L448.321 155.085C448.035 155.277 447.801 155.488 447.617 155.717C447.437 155.944 447.335 156.194 447.309 156.466C447.284 156.737 447.362 157.03 447.543 157.344C447.675 157.573 447.837 157.737 448.028 157.835C448.223 157.932 448.439 157.976 448.675 157.968C448.914 157.964 449.164 157.914 449.424 157.817C449.687 157.724 449.955 157.599 450.228 157.441Z" fill="black"/>
-            <path d="M450.592 150.413L449.362 151.124L447.169 147.325L448.399 146.615L450.592 150.413ZM450.551 146.626L451.554 148.363L445.386 151.924C445.197 152.033 445.066 152.14 444.994 152.247C444.924 152.357 444.897 152.474 444.915 152.598C444.937 152.719 444.992 152.856 445.08 153.009C445.143 153.117 445.203 153.211 445.259 153.291C445.322 153.373 445.377 153.44 445.424 153.493L444.15 154.237C444.015 154.116 443.884 153.978 443.757 153.821C443.629 153.665 443.504 153.482 443.384 153.273C443.163 152.891 443.033 152.521 442.993 152.164C442.959 151.808 443.039 151.473 443.232 151.158C443.425 150.843 443.751 150.553 444.209 150.288L450.551 146.626Z" fill="black"/>
-            <path d="M447.921 145.783L441.398 149.549L440.392 147.807L446.915 144.04L447.921 145.783ZM448.553 142.95C448.806 142.804 449.066 142.772 449.333 142.854C449.6 142.935 449.819 143.125 449.991 143.422C450.161 143.716 450.214 143.998 450.151 144.27C450.091 144.546 449.934 144.757 449.681 144.904C449.428 145.05 449.166 145.08 448.897 144.994C448.63 144.913 448.412 144.725 448.243 144.432C448.071 144.134 448.016 143.85 448.079 143.578C448.142 143.306 448.3 143.096 448.553 142.95Z" fill="black"/>
-            <path d="M440.13 143.752L445.092 140.887L446.095 142.624L439.571 146.39L438.628 144.756L440.13 143.752ZM441.58 143.172L441.888 143.678C441.454 143.928 441.021 144.111 440.589 144.227C440.161 144.34 439.753 144.375 439.363 144.331C438.978 144.286 438.621 144.155 438.292 143.937C437.967 143.718 437.685 143.401 437.446 142.987C437.262 142.669 437.137 142.35 437.07 142.03C437.009 141.711 437.02 141.4 437.101 141.096C437.189 140.793 437.354 140.499 437.597 140.214C437.846 139.931 438.188 139.664 438.622 139.414L442.836 136.98L443.839 138.717L439.613 141.157C439.42 141.268 439.27 141.384 439.163 141.505C439.058 141.63 438.987 141.759 438.952 141.892C438.916 142.025 438.913 142.159 438.942 142.292C438.973 142.429 439.029 142.568 439.11 142.709C439.317 143.067 439.551 143.306 439.814 143.428C440.08 143.553 440.361 143.586 440.659 143.527C440.964 143.469 441.27 143.351 441.58 143.172Z" fill="black"/>
-            <path d="M439.833 135.064L434.733 138.009L433.73 136.273L440.254 132.506L441.197 134.14L439.833 135.064ZM442.433 136.184L440.806 137.083C440.769 136.992 440.72 136.883 440.659 136.758C440.603 136.635 440.548 136.525 440.492 136.428C440.351 136.183 440.195 135.989 440.027 135.845C439.864 135.703 439.688 135.606 439.498 135.555C439.31 135.508 439.112 135.505 438.905 135.544C438.699 135.588 438.484 135.669 438.258 135.789L438.165 135.376C438.587 135.133 438.999 134.951 439.401 134.831C439.808 134.709 440.19 134.652 440.548 134.66C440.909 134.671 441.23 134.754 441.511 134.907C441.793 135.061 442.022 135.291 442.198 135.596C442.254 135.692 442.303 135.796 442.345 135.905C442.391 136.013 442.42 136.106 442.433 136.184Z" fill="black"/>
-            <path d="M432.455 134.059L431.445 132.311L438.548 128.21C439.042 127.925 439.514 127.781 439.963 127.779C440.418 127.779 440.834 127.906 441.211 128.16C441.595 128.415 441.928 128.788 442.211 129.279C442.304 129.439 442.381 129.601 442.443 129.764C442.509 129.924 442.566 130.084 442.615 130.243L441.296 130.98C441.272 130.892 441.24 130.804 441.199 130.715C441.159 130.626 441.106 130.525 441.041 130.412C440.92 130.203 440.781 130.045 440.623 129.938C440.471 129.833 440.304 129.782 440.124 129.784C439.943 129.787 439.754 129.845 439.557 129.959L432.455 134.059ZM439.73 131.595L438.5 132.305L436.179 128.284L437.408 127.574L439.73 131.595Z" fill="black"/>
-          </g>
 
-          {/* Upward arrow — scales in from bottom up, fades out at legal scene */}
-          {frame < LEGAL_START && (
-            <g style={{ transformOrigin: "397px 317px", transform: "scale(0.667)" }}>
-              <path
-                d="M398.414 278.586C397.633 277.805 396.367 277.805 395.586 278.586L382.858 291.314C382.077 292.095 382.077 293.361 382.858 294.142C383.639 294.923 384.905 294.923 385.686 294.142L397 282.828L408.314 294.142C409.095 294.923 410.361 294.923 411.142 294.142C411.923 293.361 411.923 292.095 411.142 291.314L398.414 278.586ZM397 356L399 356L399 280L397 280L395 280L395 356L397 356Z"
-                fill="black"
-                style={{
-                  opacity: swArrowSp * switchExitOp,
-                  transform: `scaleY(${swArrowSp})`,
-                  transformOrigin: "397px 356px",
-                }}
-              />
-            </g>
-          )}
 
-          {/* Checkmark — springs in at legal scene, 2/3 size */}
-          {frame >= LEGAL_START && (
-            <g style={{ transform: "translate(349px, 269px)", opacity: swCheckSp }}>
-              <path d={CHECKMARK} fill="black"
-                style={{ transformOrigin: "48px 48px", transform: `scale(${swCheckSp * 0.667})` }}/>
-            </g>
-          )}
-
-          {/* Left connector triangle — fast fade in */}
-          <path
-            d="M342.908 415.889C345.583 417.427 345.583 421.286 342.908 422.824L292.971 451.537C290.305 453.07 286.977 451.145 286.977 448.069L286.977 390.643C286.977 387.567 290.305 385.642 292.971 387.175L342.908 415.889Z"
-            fill="black" stroke="black" strokeWidth="2"
-            opacity={swConnLSp}
-          />
-
-          {/* Right connector triangle — fast fade in */}
-          <path
-            d="M448.176 423.692C444.833 421.77 444.833 416.946 448.176 415.023L498.113 386.31C501.446 384.393 505.605 386.799 505.605 390.644L505.605 448.071C505.605 451.916 501.446 454.322 498.113 452.406L448.176 423.692Z"
-            fill="black"
-            opacity={swConnRSp}
-          />
-
-          {/* Connector line + endpoint dots */}
-          <path d="M369.173 419.356H424.756" stroke="black" opacity={swLineOp}/>
-          <circle cx="359.426" cy="419.357" r="3.6093" fill="black" opacity={swLineOp}/>
-          <circle cx="431.974" cy="419.357" r="3.6093" fill="black" opacity={swLineOp}/>
-        </>
-      )}
-
-      {/* Transition flash at switch cut */}
-      {flash3Opacity > 0 && (
-        <rect width="800" height="600" fill="#FBFFF7" opacity={flash3Opacity}/>
-      )}
 
       {/* ── Final CTA scene ── */}
       {frame >= FINAL_START && (
         <>
-          {/* Booking/calendar+pencil icon — elastic spring in */}
-          <g style={{ transformOrigin: "394px 153px", transform: `scale(${finalIconSp})`, opacity: finalIconSp }}>
-            <path d={BOOKING_ICON} fill="black"/>
-          </g>
-
           {/* "fruitpie" wordmark — springs in as one unit, centered horizontally */}
           <g style={{ opacity: sp(FINAL_START, SMOOTH), transform: `translate(27px, ${(1 - sp(FINAL_START, SMOOTH)) * 14}px)` }}>
             {WM2_LETTERS.map((d, i) => <path key={i} d={d} fill="black"/>)}
@@ -1099,12 +1025,14 @@ export const FruitpieStoryboard: React.FC = () => {
         </AbsoluteFill>
       )}
 
-      {/* ── Money scene: text (same position as 8s screen text) ── */}
+      {/* ── Money scene: text ── */}
       {frame >= MONEY_START && frame < SWITCH_START + 5 && (
-        <AbsoluteFill style={{ pointerEvents: "none", opacity: moneyExitOp }}>
+        <AbsoluteFill style={{ pointerEvents: "none" }}>
           <WordReveal
             text="En niet onbelangrijk..."
             startFrame={MONEY_START}
+            exitFrame={SWITCH_START}
+            exitWordDelay={1}
             style={{
               position: "absolute",
               top: 490,
@@ -1122,6 +1050,8 @@ export const FruitpieStoryboard: React.FC = () => {
           <WordReveal
             text="aan de helft van de prijs..."
             startFrame={MONEY_DROP}
+            exitFrame={SWITCH_START}
+            exitWordDelay={1}
             style={{
               position: "absolute",
               top: 531,
@@ -1139,71 +1069,45 @@ export const FruitpieStoryboard: React.FC = () => {
         </AbsoluteFill>
       )}
 
-      {/* ── Switch scene: text ── */}
-      {frame >= SWITCH_START && frame < LEGAL_START + 5 && (
-        <AbsoluteFill style={{ pointerEvents: "none", opacity: frame >= LEGAL_START - 20 ? switchExitOp : 1 }}>
+      {/* ── Line 1: "Overstappen is bovendien eenvoudig" ── */}
+      {frame >= SWITCH_START && frame < LINE2_START && (
+        <AbsoluteFill style={{ display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
           <WordReveal
             text="Overstappen is bovendien eenvoudig"
-            startFrame={SWITCH_START + 10}
-            style={{
-              position: "absolute",
-              top: 490,
-              left: 81,
-              width: 639,
-              fontFamily,
-              fontSize: 26,
-              fontWeight: 400,
-              color: "#000000",
-              letterSpacing: 0,
-              lineHeight: "33px",
-              justifyContent: "center",
-            }}
-          />
-          <WordReveal
-            text="want de overdracht is wettelijk bepaald"
-            startFrame={SWITCH_START + 27}
-            style={{
-              position: "absolute",
-              top: 531,
-              left: 81,
-              width: 639,
-              fontFamily,
-              fontSize: 26,
-              fontWeight: 400,
-              color: "#000000",
-              letterSpacing: 0,
-              lineHeight: "33px",
-              justifyContent: "center",
-            }}
+            startFrame={SWITCH_START + 8}
+            exitFrame={SWITCH_START + 65}
+            exitWordDelay={2}
+            style={{ width: "100%", fontFamily, fontSize: 32, fontWeight: 300, color: "#000000", justifyContent: "center", lineHeight: "40px" }}
           />
         </AbsoluteFill>
       )}
-
-      {/* ── Legal scene: text ── */}
-      {frame >= LEGAL_START && frame < PROEVEN_START && (
-        <AbsoluteFill style={{ pointerEvents: "none" }}>
+      {/* ── Line 2: "want de overdracht is wettelijk bepaald" ── */}
+      {frame >= LINE2_START && frame < LINE3_START && (
+        <AbsoluteFill style={{ display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+          <WordReveal
+            text="want de overdracht is wettelijk bepaald"
+            startFrame={LINE2_START + 8}
+            exitFrame={LINE2_START + 65}
+            exitWordDelay={2}
+            style={{ width: "100%", fontFamily, fontSize: 32, fontWeight: 300, color: "#000000", justifyContent: "center", lineHeight: "40px" }}
+          />
+        </AbsoluteFill>
+      )}
+      {/* ── Line 3: "En wij regelen alles met je huidige boekhouder" ── */}
+      {frame >= LINE3_START && frame < PROEVEN_START + 5 && (
+        <AbsoluteFill style={{ display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
           <WordReveal
             text="En wij regelen alles met je huidige boekhouder"
-            startFrame={LEGAL_START + 10}
-            style={{
-              position: "absolute",
-              top: 490,
-              left: 81,
-              width: 639,
-              fontFamily,
-              fontSize: 26,
-              fontWeight: 400,
-              color: "#000000",
-              letterSpacing: 0,
-              lineHeight: "33px",
-              justifyContent: "center",
-            }}
+            startFrame={LINE3_START + 8}
+            exitFrame={LINE3_START + 65}
+            exitWordDelay={2}
+            style={{ width: "100%", fontFamily, fontSize: 32, fontWeight: 300, color: "#000000", justifyContent: "center", lineHeight: "40px" }}
           />
         </AbsoluteFill>
       )}
 
       {/* ── Proeven scene: single word, center-center ── */}
-      {frame >= PROEVEN_START && frame < FINAL_START && (
+      {frame >= PROEVEN_START && frame < FINAL_START + 15 && (
         <AbsoluteFill style={{
           display: "flex",
           alignItems: "center",
@@ -1213,13 +1117,15 @@ export const FruitpieStoryboard: React.FC = () => {
           <WordReveal
             text="Proeven?"
             startFrame={PROEVEN_START}
+            exitFrame={FINAL_START - 15}
             style={{
+              width: "100%",
               fontFamily,
-              fontSize: 72,
+              fontSize: 32,
               fontWeight: 300,
               color: "#000000",
               letterSpacing: 0,
-              lineHeight: "84px",
+              lineHeight: "40px",
               justifyContent: "center",
             }}
           />
@@ -1231,6 +1137,7 @@ export const FruitpieStoryboard: React.FC = () => {
           <WordReveal
             text="Boek dan een online proefgesprek op fruitpie.ai"
             startFrame={FINAL_START + 25}
+            exitWordDelay={6}
             style={{
               position: "absolute",
               top: 490,

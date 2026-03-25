@@ -4,7 +4,7 @@ import { useMouseSticky } from "../hooks/useMouseSticky";
 
 const THUMBNAIL = "/video-thumbnail.jpg";
 // Replace with your actual video URL when ready
-const VIDEO_URL = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+const VIDEO_URL = "/video.mp4";
 
 export default function VideoSection() {
   const sectionRef = useFadeInSection();
