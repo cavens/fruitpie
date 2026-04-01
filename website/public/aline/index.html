@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA sem limites, com a Aline e o professor Jef.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #faf9f7;
+    color: #1a1a18;
+    min-height: 100vh;
+    padding: 0 0 64px;
+  }
+  .header {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 52px 32px 36px;
+    border-bottom: 1px solid #e4e2d8;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #999890;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px;
+    line-height: 1.15;
+    color: #1a1a18;
+    margin-bottom: 12px;
+  }
+  h1 em { font-style: italic; color: #666660; }
+  .subtitle {
+    font-size: 14px;
+    color: #666660;
+    line-height: 1.65;
+    max-width: 540px;
+  }
+  .intro {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 32px 0;
+  }
+  .intro-inner {
+    background: #fff;
+    border: 1px solid #e4e2d8;
+    border-radius: 12px;
+    padding: 22px 26px;
+  }
+  .intro-inner p {
+    font-size: 13.5px;
+    color: #444440;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .intro-inner p:last-child { margin-bottom: 0; }
+  .lessons {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 32px 0;
+  }
+  .lesson {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0 18px;
+    padding: 20px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .lesson:hover { background: #f0ede6; }
+  .lesson.open { background: #f0ede6; }
+  .spine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .num {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 500;
+    border: 1.5px solid;
+    flex-shrink: 0;
+  }
+  .line {
+    width: 1px; flex: 1; min-height: 20px;
+    margin-top: 8px;
+    background: #ddd9ce;
+  }
+  .lesson:last-child .line { display: none; }
+  .content { padding-top: 7px; }
+  .phase-tag {
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .lesson-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .lesson-desc { font-size: 13px; color: #666660; line-height: 1.55; margin-bottom: 8px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pill {
+    font-size: 11px; padding: 2px 9px;
+    border-radius: 20px; border: 1px solid;
+  }
+  /* phase colors */
+  .p1 .num, .p1 .pill { background: #EEEDFE; border-color: #AFA9EC; color: #3C3489; }
+  .p1 .phase-tag { color: #534AB7; }
+  .p2 .num, .p2 .pill, .p3 .num, .p3 .pill { background: #E1F5EE; border-color: #5DCAA5; color: #085041; }
+  .p2 .phase-tag, .p3 .phase-tag { color: #0F6E56; }
+  .p4 .num, .p4 .pill, .p5 .num, .p5 .pill { background: #FAEEDA; border-color: #EF9F27; color: #633806; }
+  .p4 .phase-tag, .p5 .phase-tag { color: #854F0B; }
+  .p6 .num, .p6 .pill { background: #FAECE7; border-color: #F0997B; color: #4A1B0C; }
+  .p6 .phase-tag { color: #993C1D; }
+  .p7 .num, .p7 .pill { background: #FCEBEB; border-color: #F09595; color: #501313; }
+  .p7 .phase-tag { color: #A32D2D; }
+  /* detail */
+  .detail {
+    display: none;
+    max-width: 720px;
+    margin: 4px auto 0;
+    padding: 0 32px;
+  }
+  .detail.visible { display: block; }
+  .detail-inner {
+    background: #fff;
+    border: 1px solid #e4e2d8;
+    border-radius: 12px;
+    padding: 24px 26px;
+    margin-bottom: 4px;
+  }
+  .detail-h {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; margin-bottom: 16px;
+  }
+  .d-section { margin-bottom: 16px; }
+  .d-label {
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #999890; margin-bottom: 6px;
+  }
+  .d-body { font-size: 13.5px; color: #444440; line-height: 1.65; }
+  .step-list { list-style: none; }
+  .step-list li {
+    display: flex; gap: 12px;
+    font-size: 13px; color: #444440;
+    line-height: 1.6; padding: 6px 0;
+    border-bottom: 1px solid #eeeae0;
+  }
+  .step-list li:last-child { border: none; }
+  .sn { font-size: 11px; font-weight: 500; color: #bbb8ae; min-width: 16px; padding-top: 2px; }
+  .deliverable {
+    background: #faf9f7;
+    border: 1px solid #e4e2d8;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px; color: #1a1a18; line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Curso em 7 aulas · Moda & tecnologia</div>
+  <h1>IA sem limites,<br><em>com a Aline e o professor Jef.</em></h1>
+  <p class="subtitle">Uma jornada prática por ferramentas de IA — criando um produto digital do zero até a produção, aula por aula.</p>
+</div>
+<div class="intro">
+  <div class="intro-inner">
+    <p>Neste curso, vamos explorar e dominar um conjunto de ferramentas de IA construindo juntas um produto digital real. O tema pode ser moda, beleza ou qualquer universo que te inspire — o importante é colocar a mão na massa.</p>
+    <p>A cada aula, avançamos uma etapa. Antes de cada encontro, você prepara a lição de casa. Durante a aula, revisamos juntos: o que deu certo, o que deu errado e o que aprendemos. Ao final das sete aulas, você terá um app completo no ar — e confiança para usar IA em qualquer projeto.</p>
+  </div>
+</div>
+<div class="lessons" id="lessons-container"></div>
+<div id="detail-container"></div>
+<script>
+const data = [
+  {
+    num:1, phase:"Idear", pc:"p1",
+    title:"Encontre sua ideia",
+    desc:"Pesquise o mercado fashion-tech, identifique uma oportunidade e crie um primeiro protótipo clicável.",
+    tools:["Claude Cowork","NotebookLM","Lovable"],
+    goal:"Chegar a um conceito claro de app que te empolga, com um protótipo funcionando no Lovable.",
+    steps:[
+      "Abra o Claude Cowork e peça para ele pesquisar apps de moda e tecnologia — lançamentos recentes, tendências e oportunidades. Peça que resuma 3 ideias promissoras com público-alvo e diferencial.",
+      "Crie um notebook no NotebookLM e cole 2–3 artigos, prints ou links que você encontrou na pesquisa. Use a ferramenta para gerar um briefing de pesquisa organizado.",
+      "Com base na pesquisa, escreva um mini-brief de 5 frases: o que o app faz, para quem é, e qual é a funcionalidade principal. Não precisa ser perfeito — é um ponto de partida.",
+      "Abra o Lovable, cole seu brief no chat e vá iterando: peça ajustes de layout, cores, textos e fluxo até ter um protótipo que você consiga clicar e navegar.",
+      "Tire 3 prints das telas principais e escreva um parágrafo curto: o que funciona bem e o que ainda falta."
+    ],
+    deliverable:"URL do protótipo no Lovable + mini-brief da ideia (doc ou áudio). Sem necessidade de branding — apenas o conceito funcionando."
+  },
+  {
+    num:2, phase:"Construir", pc:"p2",
+    title:"Refine e publique no seu domínio",
+    desc:"Melhore o protótipo, adicione logo e paleta de cores, e publique em um domínio próprio.",
+    tools:["Recraft","Lovable","Namecheap","Cloudflare DNS"],
+    goal:"Uma versão polida e com marca, ao vivo em uma URL própria.",
+    steps:[
+      "Use o Recraft para gerar um logo e uma paleta de cores — baixe como SVG.",
+      "Aplique a identidade visual no Lovable: troque cores, adicione o logo, refine os textos.",
+      "Compre um domínio em um registrador (ex: Namecheap).",
+      "Configure o DNS apontando para o Lovable (CNAME/A record).",
+      "Compartilhe a URL e confirme que carrega corretamente no celular."
+    ],
+    deliverable:"App com marca visual publicado no seu próprio domínio."
+  },
+  {
+    num:3, phase:"Construir", pc:"p3",
+    title:"Adicione conteúdo real e fluxo de voz",
+    desc:"Preencha o app com conteúdo de verdade e use o Wispr Flow para criar por voz.",
+    tools:["Wispr Flow","Airtable","Lovable"],
+    goal:"O app parece real — sem textos genéricos — e você usou voz para acelerar o trabalho.",
+    steps:[
+      "Instale o Wispr Flow e dite descrições de produtos e textos da interface diretamente no chat do Lovable.",
+      "Crie uma base simples no Airtable como fonte de conteúdo.",
+      "Importe ou conecte ao Lovable (CSV ou API do Airtable).",
+      "Navegue pelo app como um usuário novo — corrija textos, rótulos e navegação."
+    ],
+    deliverable:"App com conteúdo real, atualizado na URL ao vivo."
+  },
+  {
+    num:4, phase:"Entregar", pc:"p4",
+    title:"Exporte para o VS Code e leia o código",
+    desc:"Traga o projeto para o VS Code, entenda a estrutura e faça uma edição manual.",
+    tools:["VS Code","GitHub","Claude chat"],
+    goal:"Você consegue abrir o código, explicar o que cada arquivo faz e subir uma alteração.",
+    steps:[
+      "Envie seu projeto do Lovable para o GitHub usando a integração nativa.",
+      "Clone o repositório e abra no VS Code.",
+      "Peça ao Claude no chat para explicar a estrutura de pastas e o componente principal.",
+      "Faça uma pequena edição manual (cor, texto ou rótulo) — salve, commit, push.",
+      "Confirme que o site ao vivo reflete a mudança."
+    ],
+    deliverable:"Repositório no GitHub + áudio (Wispr) explicando o que você mudou e por quê."
+  },
+  {
+    num:5, phase:"Entregar", pc:"p5",
+    title:"Adicione uma funcionalidade com IA",
+    desc:"Use o Claude Code no terminal para criar uma feature real com LLM dentro do app.",
+    tools:["Claude Code","Anthropic API","VS Code"],
+    goal:"Seu app tem pelo menos uma feature com IA — ex: sugestão de looks ou busca por linguagem natural.",
+    steps:[
+      "Escolha uma feature: 'descreva este look em uma frase' ou 'sugira peças que combinam'.",
+      "Abra o Claude Code dentro do terminal do projeto.",
+      "Peça para ele criar a chamada de API — ele escreve o código e explica cada linha.",
+      "Teste localmente e suba para o GitHub.",
+      "Escreva 3 frases: como a feature funciona e qual prompt você usou."
+    ],
+    deliverable:"App ao vivo com uma feature de IA funcionando."
+  },
+  {
+    num:6, phase:"Código", pc:"p6",
+    title:"Segurança, performance e testes",
+    desc:"Proteja as chaves de API, rode o Lighthouse e adicione tratamento de erros.",
+    tools:["Claude Code","Lighthouse","dotenv / Supabase"],
+    goal:"Sem segredos expostos, Lighthouse melhor e tratamento de erros na feature de IA.",
+    steps:[
+      "Peça ao Claude Code para auditar chaves expostas — mova para variáveis de ambiente.",
+      "Rode o Lighthouse no DevTools e corrija os 2 problemas principais.",
+      "Adicione tratamento de erros na feature de IA (fallback quando a API estiver fora).",
+      "Teste 5 cenários extremos e documente o que encontrou."
+    ],
+    deliverable:"Checklist de auditoria — o que foi corrigido e o que ficaria para v2."
+  },
+  {
+    num:7, phase:"Produção", pc:"p7",
+    title:"Pronto para produção e apresentação",
+    desc:"Deploy automático pelo GitHub, últimos ajustes e demo ao vivo.",
+    tools:["Vercel","GitHub Actions","Claude Cowork","Wispr"],
+    goal:"Um app em produção com deploy automático — com marca, IA e pronto para apresentar.",
+    steps:[
+      "Conecte o repositório ao Vercel ou Netlify — cada push vai ao ar automaticamente.",
+      "Use o Claude Cowork para uma pesquisa final: quais features fariam a v2 melhor?",
+      "Grave um walkthrough de 3 minutos narrado com Wispr.",
+      "Prepare-se para responder: o que cada ferramenta fez? O que você faria diferente?",
+      "Demo ao vivo — mostre o app, o repositório e descreva o próximo passo."
+    ],
+    deliverable:"URL ao vivo + repositório GitHub + gravação de 3 min da demo."
+  }
+];
+const lc = document.getElementById('lessons-container');
+const dc = document.getElementById('detail-container');
+let open = null;
+data.forEach((l, i) => {
+  const div = document.createElement('div');
+  div.className = `lesson ${l.pc}`;
+  div.innerHTML = `
+    <div class="spine">
+      <div class="num">${l.num}</div>
+      <div class="line"></div>
+    </div>
+    <div class="content">
+      <div class="phase-tag">${l.phase}</div>
+      <div class="lesson-title">${l.title}</div>
+      <div class="lesson-desc">${l.desc}</div>
+      <div class="pills">${l.tools.map(t=>`<span class="pill">${t}</span>`).join('')}</div>
+    </div>
+  `;
+  div.onclick = () => toggle(i, div);
+  lc.appendChild(div);
+  const det = document.createElement('div');
+  det.className = 'detail';
+  det.id = `det-${i}`;
+  det.innerHTML = `<div class="detail-inner">
+    <div class="detail-h">Aula ${l.num} — ${l.title}</div>
+    <div class="d-section">
+      <div class="d-label">Objetivo</div>
+      <div class="d-body">${l.goal}</div>
+    </div>
+    <div class="d-section">
+      <div class="d-label">Passo a passo</div>
+      <ul class="step-list">${l.steps.map((s,j)=>`<li><span class="sn">${j+1}.</span><span>${s}</span></li>`).join('')}</ul>
+    </div>
+    <div class="d-section">
+      <div class="d-label">Entrega</div>
+      <div class="deliverable">${l.deliverable}</div>
+    </div>
+  </div>`;
+  dc.appendChild(det);
+});
+function toggle(i, el) {
+  const det = document.getElementById(`det-${i}`);
+  if (open === i) {
+    det.classList.remove('visible');
+    el.classList.remove('open');
+    open = null;
+  } else {
+    if (open !== null) {
+      document.getElementById(`det-${open}`).classList.remove('visible');
+      document.querySelectorAll('.lesson')[open].classList.remove('open');
+    }
+    det.classList.add('visible');
+    el.classList.add('open');
+    open = i;
+    det.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+}
+</script>
+</body>
+</html>
